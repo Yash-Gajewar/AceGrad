@@ -52,7 +52,7 @@
  @media only screen and (max-width: 400px) {
      .container {
          grid-template-columns: 1fr;
-         grid-template-rows: 0.16fr 0.3fr 2fr 2fr 0.16fr;
+         grid-template-rows: 0.2fr 0.3fr 2fr 2fr 0.2fr;
          grid-template-areas:
              "header"
              "nav"

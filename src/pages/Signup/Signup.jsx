@@ -23,7 +23,7 @@ const Signup = () => {
                 </div>
 
             </div>
-            <div id="content1" className='flex flex-col justify-center items-start'>
+            <div id="content1" className='flex flex-col justify-center items-center'>
                 <div className='ml-48'>
                     <h2 class="text-blue-950 text-5xl font-bold dark:text-white">Ace your next</h2>
                     <h3 class="mt-2 text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">Job Interview</h3>
