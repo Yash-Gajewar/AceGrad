@@ -26,7 +26,7 @@ const Signup = () => {
             <div id="content1" className='flex flex-col justify-center items-start'>
                 <div className='ml-48'>
                     <h2 class="text-blue-950 text-5xl font-bold dark:text-white">Ace your next</h2>
-                    <h3 class="mt-2 text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">Interview</h3>
+                    <h3 class="mt-2 text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">Job Interview</h3>
                     <p class="mt-5 text-lg font-normal text-gray-400 lg:text-xl dark:text-gray-400">Improve your communication skills by pracitsing through virtual interview. See past Interview Experiences of your Company and Excel in your Interview!</p>
 
 

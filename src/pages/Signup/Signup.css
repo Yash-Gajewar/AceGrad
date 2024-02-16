@@ -34,12 +34,12 @@
 
 
  #content1 {
-     background-color: rgb(246, 249, 255);
+     background-color: rgb(250, 255, 255);
      grid-area: content1;
  }
 
  #content2 {
-     background-color: rgb(246, 249, 255);
+     background-color: rgb(250, 255, 255);
      grid-area: content2;
  }
 
