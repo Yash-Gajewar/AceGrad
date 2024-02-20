@@ -1,8 +1,6 @@
 .sidebar {
     color: black;
     height: 100vh;
-    /* Set sidebar height to full screen */
-    /* Enable scrolling if menu items exceed screen height */
     background-color: aliceblue;
     transition: width 0.3s ease;
 }

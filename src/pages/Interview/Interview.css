@@ -1,0 +1,42 @@
+.container {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 0.18fr 0.4fr 1fr;
+    grid-template-areas:
+        "heading heading"
+        "description video"
+        "questions video";
+
+
+}
+
+
+.heading {
+    background-color: rgb(212, 251, 251);
+    grid-area: heading;
+}
+
+.description {
+    background-color: aliceblue;
+    grid-area: description;
+    margin: 1.5rem;
+}
+
+.questions {
+    background-color: aquamarine;
+    grid-area: questions;
+    margin-top: 1.rem;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+
+}
+
+.video {
+    background-color: antiquewhite;
+    grid-area: video;
+    margin: 1.5rem;
+    padding: 1rem;
+}
