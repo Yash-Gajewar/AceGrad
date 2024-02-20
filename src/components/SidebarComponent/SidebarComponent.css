@@ -2,7 +2,6 @@
     color: black;
     height: 100vh;
     /* Set sidebar height to full screen */
-    overflow-y: auto;
     /* Enable scrolling if menu items exceed screen height */
     background-color: aliceblue;
     transition: width 0.3s ease;
