@@ -3,7 +3,7 @@ import SidebarComponent from '../../components/SidebarComponent/SidebarComponent
 import { useRecordWebcam } from "react-record-webcam";
 import './Interview.css';
 import help from '../../assets/help.png';
-
+import recorder from '../../assets/recorder.png';
 
 function Interview() {
 
@@ -37,9 +37,9 @@ function Interview() {
             <SidebarComponent />
             {/* main content div */}
 
-            <div className="container">
+            <div className="InterviewContainer">
 
-                <div className="heading flex flex-col justify-center items-start">
+                <div className="InterviewHeading flex flex-col justify-center items-start">
                     <div className='flex ml-16'>
                         <img src={help} alt="help" width={25} height={25} />
                         <p className='ml-2'>Interview Practice</p>
@@ -49,20 +49,20 @@ function Interview() {
                     </div>
                 </div>
 
-                <div className="description p-5">
-                    Hi Yash! 👋 Let’s continue your learning journey
+                <div className="InterviewDescription p-5">
+                    Hi Yash! 👋 Let's continue your learning journey
 
-                    For today’s session, please select at least 2 starter questions. After each answer, 1 additional question will be generated based on your response.
+                    For today's session, please select at least 2 starter questions. After each answer, 1 additional question will be generated based on your response.
                 </div>
 
-                <div className="questions">
+                <div className="InterviewQuestions">
                     questions
                 </div>
 
-                <div className="video">
-                    <div className="demo w-full h-full">
-                        <button onClick={example}>Start</button>
+                <div className="InterviewVideo">
+                    <div className="demo w-full h-1/2">
                         <div className="recordings">
+                        <img src={recorder} alt="camera" width={25} height={25} onClick={example} className='cursor-pointer'/>
                             {activeRecordings.map((recording) => (
                                 <div key={recording.id}>
                                     <video ref={recording.webcamRef} autoPlay muted />
@@ -71,6 +71,7 @@ function Interview() {
                             ))}
                         </div>
                     </div>
+
                 </div>
             </div>
 

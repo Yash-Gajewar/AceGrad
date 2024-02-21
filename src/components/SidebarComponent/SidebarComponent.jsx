@@ -5,6 +5,8 @@ import interview from '../../assets/interview.png';
 import dashboard from '../../assets/dashboard.png';
 import story from '../../assets/story.png';
 import './SidebarComponent.css';
+import { Link } from 'react-router-dom';
+
 
 
 const imageHeight = 35;
@@ -33,7 +35,7 @@ const SidebarComponent = () => {
                                     )
                             }
                         </MenuItem>
-                        <MenuItem className='mt-4'>
+                        <MenuItem component={<Link to="/interview" />} className='mt-4'>
                             {
                                 collapsed ? <img src={interview} alt="interview" height={imageHeight} width={imageWidth} />
                                     : (

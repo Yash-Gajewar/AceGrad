@@ -8,9 +8,9 @@ import padlock from '../../assets/padlock.png'
 
 const Signup = () => {
     return (
-        <div className='container'>
-            <div id="header">It's your time to speak like a <p id='leader'>LEADER</p> </div>
-            <div id="nav" className='flex p-2 justify-between items-center'>
+        <div className='SignupContainer'>
+            <div className="SignupHeader">It's your time to speak like a <p className='SignupLeader'>LEADER</p> </div>
+            <div className='SignupNav flex p-2 justify-between items-center'>
                 <div className='flex justify-center items-center ml-5'>
                     <img src={microphone} alt="microphone"
                         width={70} height={50} />
@@ -24,11 +24,11 @@ const Signup = () => {
                 </div>
 
             </div>
-            <div id="content1" className='flex flex-col justify-center items-center'>
+            <div className='SignupContent1 flex flex-col justify-center items-center'>
                 <div className='ml-48'>
-                    <h2 class="text-blue-950 text-5xl font-bold dark:text-white">Ace your next</h2>
-                    <h3 class="mt-2 text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">Job Interview</h3>
-                    <p class="mt-5 text-lg font-normal text-gray-400 lg:text-xl dark:text-gray-400">Improve your communication skills by pracitsing through virtual interview. See past Interview Experiences of your Company and Excel in your Interview!</p>
+                    <h2 className="text-blue-950 text-5xl font-bold dark:text-white">Ace your next</h2>
+                    <h3 className="mt-2 text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">Job Interview</h3>
+                    <p className="mt-5 text-lg font-normal text-gray-400 lg:text-xl dark:text-gray-400">Improve your communication skills by pracitsing through virtual interview. See past Interview Experiences of your Company and Excel in your Interview!</p>
 
 
                     {/* registeration section */}
@@ -58,10 +58,10 @@ const Signup = () => {
                 </div>
 
             </div>
-            <div id="content2" className='flex justify-center items-center'>
+            <div className='SignupContent2 flex justify-center items-center'>
                 <Lottie animationData={Interview} style={{ width: 500, height: 500 }} />
             </div>
-            <footer>Footer</footer>
+            <div className='SignupFooter'></div>
         </div>
     )
 }
