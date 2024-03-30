@@ -6,6 +6,7 @@ import dashboard from '../../assets/dashboard.png';
 import story from '../../assets/story.png';
 import './SidebarComponent.css';
 import { Link } from 'react-router-dom';
+import right_arrow from '../../assets/right_arrow.png';
 
 
 
@@ -14,7 +15,7 @@ const imageWidth = 35;
 
 
 const SidebarComponent = () => {
-    const [collapsed, setCollapsed] = useState(false);
+    const [collapsed, setCollapsed] = useState(true);
 
     const handleToggleSidebar = () => {
         setCollapsed(!collapsed);
@@ -26,11 +27,13 @@ const SidebarComponent = () => {
                     <Menu>
                         <MenuItem onClick={handleToggleSidebar} className='mt-12'>
                             {
-                                collapsed ? <img src={microphone} alt="microphone" height={imageHeight} width={imageWidth} />
+                                collapsed ? <img src={right_arrow} alt="right_arrow" height={imageHeight} width={imageWidth} />
                                     : (
                                         <div className='flex justify-start items-center'>
+
+                                        
                                             <img src={microphone} alt="microphone" height={imageHeight} width={imageWidth} />
-                                            <span>AceGrad</span>
+                                            <span className='ml-2'>AceGrad</span>
                                         </div>
                                     )
                             }

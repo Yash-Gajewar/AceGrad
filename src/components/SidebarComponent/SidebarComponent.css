@@ -1,7 +1,8 @@
 .sidebar {
+    position: sticky;
     color: black;
     height: 100vh;
-    background-color: aliceblue;
+    background-color: #a3a9fb;
     transition: width 0.3s ease;
 }
 
