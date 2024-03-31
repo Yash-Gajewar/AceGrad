@@ -198,7 +198,7 @@ function Interview() {
                                             setCameraOn(false)
                                         }} className='cursor-pointer' />
 
-                                        <div className=' w-5/6 ml-16 h-1/2'>
+                                        <div className='w-4/5 ml-16 h-8/9'>
                                             {activeRecordings.map((recording) => (
                                                 <div key={recording.id}>
                                                     <video ref={recording.webcamRef} autoPlay muted className='rounded-md' />
@@ -215,7 +215,7 @@ function Interview() {
                                             example()
                                         }} className='cursor-pointer' />
 
-                                        <div className='flex w-4/5 ml-16 h-1/2 p-24 bg-gradient-to-r from-purple-600 to-blue-500 rounded-md justify-center items-center'>
+                                        <div className='flex w-4/5 ml-16 h-1/2 p-20 bg-gradient-to-r from-purple-600 to-blue-500 rounded-md justify-center items-center'>
                                             <div class="flex justify-center items-center w-32 h-32 bg-white rounded-full">
                                                 <img src={video} alt="video" width={100} height={100} />
                                             </div>
