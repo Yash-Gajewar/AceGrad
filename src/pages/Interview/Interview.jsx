@@ -16,6 +16,7 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 
 
+
 const NumberInput = React.forwardRef(function CustomNumberInput(props, ref) {
     return (
         <BaseNumberInput
@@ -46,6 +47,9 @@ function Interview() {
     const [interviewer, setInterviewer] = useState('');
     const [addQuestion, setAddQuestion] = useState(false);
     const [question, setQuestion] = useState('');
+
+    const [selectedFile, setSelectedFile] = useState("No file chosen");
+
 
     const [questionList, setQuestionList] = useState([
         'Tell me about yourself',
@@ -78,6 +82,10 @@ function Interview() {
 
 
 
+
+
+
+
     return (
         <div className='flex'>
 
@@ -101,7 +109,7 @@ function Interview() {
                 <div className="InterviewDescription p-5">
                     Hi Yash! 👋 Let's continue your learning journey.
                     <br></br>
-                    Enter the number of Questions. Write any Questions you want to answer. Additional Questions will be AI generated.
+                    Upload Your Resume. Enter the number of Questions. Write any Questions you want to answer. Additional Questions will be AI generated based on your Resume.
                 </div>
 
                 <div className="InterviewQuestions">
@@ -159,7 +167,7 @@ function Interview() {
                                     <input type="text" placeholder="Add Question" className='p-2.5 w-3/4'
                                         onChange={(e) => setQuestion(e.target.value)}
                                     />
-                                    <img src={check} alt="check" width={25} onClick={() => {
+                                    <img src={check} alt="check" width={40} onClick={() => {
                                         setQuestionList([...questionList, question])
                                         setAddQuestion(false)
                                     }
@@ -186,11 +194,11 @@ function Interview() {
                             {
                                 cameraOn ? (
                                     <>
-                                        <img src={camera_off} alt="camera_off" width={30} height={30} onClick={() => {
+                                        <img src={camera_off} alt="camera_off" width={40} height={40} onClick={() => {
                                             setCameraOn(false)
                                         }} className='cursor-pointer' />
 
-                                        <div className=' w-4/5 ml-16 h-1/2'>
+                                        <div className=' w-5/6 ml-16 h-1/2'>
                                             {activeRecordings.map((recording) => (
                                                 <div key={recording.id}>
                                                     <video ref={recording.webcamRef} autoPlay muted className='rounded-md' />
@@ -208,19 +216,39 @@ function Interview() {
                                         }} className='cursor-pointer' />
 
                                         <div className='flex w-4/5 ml-16 h-1/2 p-24 bg-gradient-to-r from-purple-600 to-blue-500 rounded-md justify-center items-center'>
-                                            <img src={video} alt="video" width={100} height={100} />
+                                            <div class="flex justify-center items-center w-32 h-32 bg-white rounded-full">
+                                                <img src={video} alt="video" width={100} height={100} />
+                                            </div>
                                         </div>
                                     </>
 
                                 )
                             }
 
-                            <div className='flex justify-center items-center mt-5'>
-                               <div className='mr-5'> Enter Number of Questions</div> <NumberInput aria-label="Quantity Input" min={1} max={99} />;
+                            <div class="flex flex-row justify-center items-center mt-5">
+                                <input
+                                    type="file"
+                                    id="custom-input"
+                                    onChange={(e) => setSelectedFile(e.target.files[0].name)}
+                                    hidden
+                                />
+                                <label
+                                    for="custom-input"
+                                    class="block text-sm  mr-4 py-2 px-4 rounded-md border-0 font-semibold text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800   cursor-pointer"
+                                >
+                                    Upload Resume
+                                </label>
+                                <label class="text-sm text-slate-500">{selectedFile}</label>
                             </div>
 
-                            <div className='flex justify-center items-center'>
-                               <a href className='text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-l px-5 py-2.5 text-center me-2 mt-5 mr-5'>Start Interview</a>
+                            <div className='flex justify-center items-center mt-2'>
+                                <div className='mr-5'>Number of Questions</div> <NumberInput aria-label="Quantity Input" min={1} max={99} />;
+                            </div>
+
+
+
+                            <div className='flex justify-center items-center cursor-default'>
+                                <a href className='text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-l px-5 py-2.5 text-center me-2 mt-5 mr-5'>Start Interview</a>
                             </div>
 
 
