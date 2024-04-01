@@ -18,7 +18,6 @@
 }
 
 .InterviewDescription {
-    background-color: aliceblue;
     grid-area: description;
     margin: 1.5rem;
     background-color: #EEEFFE;
@@ -26,7 +25,6 @@
 }
 
 .InterviewQuestions {
-    background-color: aquamarine;
     grid-area: questions;
     margin-top: 1.rem;
     margin-left: 1.5rem;
@@ -63,6 +61,12 @@
 }
 
 
-
+.SessionQuestions{
+    margin-top: 1.rem;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+}
 
 

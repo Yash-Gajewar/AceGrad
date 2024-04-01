@@ -194,7 +194,7 @@ function Interview() {
                             {
                                 cameraOn ? (
                                     <>
-                                        <img src={camera_off} alt="camera_off" width={40} height={40} onClick={() => {
+                                        <img src={camera_on} alt="camera_on" width={40} height={40} onClick={() => {
                                             setCameraOn(false)
                                         }} className='cursor-pointer' />
 
@@ -210,7 +210,7 @@ function Interview() {
 
                                 ) : (
                                     <>
-                                        <img src={camera_on} alt="camera_on" width={40} height={40} onClick={() => {
+                                        <img src={camera_off} alt="camera_off" width={40} height={40} onClick={() => {
                                             setCameraOn(true)
                                             example()
                                         }} className='cursor-pointer' />
@@ -248,7 +248,7 @@ function Interview() {
 
 
                             <div className='flex justify-center items-center cursor-default'>
-                                <a href className='text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-l px-5 py-2.5 text-center me-2 mt-5 mr-5'>Start Interview</a>
+                                <a href='/session' className='text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-l px-5 py-2.5 text-center me-2 mt-5 mr-5'>Start Interview</a>
                             </div>
 
 
