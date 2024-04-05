@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import SidebarComponent from '../../components/SidebarComponent/SidebarComponent';
+
 import { useRecordWebcam } from "react-record-webcam";
 import '../Interview/Interview.css';
 import help from '../../assets/help.png';
@@ -7,6 +8,10 @@ import help from '../../assets/help.png';
 import camera_on from '../../assets/camera-on.png';
 import camera_off from '../../assets/camera-off.png';
 import video from '../../assets/video.png';
+
+import play from '../../assets/play.png';
+import pause from '../../assets/pause.png';
+import stop from '../../assets/stop.png';
 
 
 function Session() {
@@ -27,29 +32,52 @@ function Session() {
     const [cameraOn, setCameraOn] = useState(false);
     const [index, setIndex] = useState(0);
 
+    const [recordingId, setRecordingId] = useState("");
 
-    const {
-        activeRecordings,
-        createRecording,
-        openCamera,
-        startRecording,
-        stopRecording,
-        closeCamera
-    } = useRecordWebcam();
+    const { createRecording, openCamera, startRecording, stopRecording, download, activeRecordings, pauseRecording, resumeRecording } = useRecordWebcam()
 
+    const [recordingStarted, setRecordingStarted] = useState(false);
+    const [startInterviewDisabled, setStartInterviewDisabled] = useState(false);
 
-    const example = async () => {
+    const recordVideo = async () => {
         try {
             const recording = await createRecording();
             if (!recording) return;
+
+            setRecordingId(recording.id);
+
             await openCamera(recording.id);
-            await startRecording(recording.id);
-            await new Promise((resolve) => setTimeout(resolve, 3000));
-            await stopRecording(recording.id);
         } catch (error) {
             console.error({ error });
         }
     };
+
+    const downloadVideo = async () => {
+        await stopRecording(recordingId);
+        await download(recordingId);
+    }
+
+    const playButtonPressed = async () => {
+
+        if (recordingStarted) {
+            await pauseRecording(recordingId);
+            setRecordingStarted(false);
+        }
+
+        else {
+            await resumeRecording(recordingId);
+            setRecordingStarted(true);
+        }
+
+    }
+
+    const startInterviewPressed = async () => {
+        await startRecording(recordingId);
+        setRecordingStarted(true);
+        setStartInterviewDisabled(true);
+    }
+
+
 
 
     return (
@@ -80,13 +108,26 @@ function Session() {
 
                 <div className='SessionQuestions bg-white'>
                     <div className='p-5 text-black bg-violet-100 '>
-                        
+
                         {
                             questionList[index]
                         }
 
                     </div>
+
+                    <div className='flex justify-center items-center cursor-default'>
+                        <button
+                            disabled={startInterviewDisabled}
+                            onClick={() => startInterviewPressed()}
+                            className={`text-white ${startInterviewDisabled ? 'cursor-not-allowed bg-gradient-to-br from-gray-400 via-gray-500 to-gray-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800' : 'bg-gradient-to-br from-purple-400 via-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800'} font-medium rounded-lg text-l px-5 py-2.5 text-center me-2 mt-5 mr-5`}
+                        >
+                            Start Interview
+                        </button>
+                    </div>
+
                 </div>
+
+
 
 
                 {/* camera section */}
@@ -115,7 +156,7 @@ function Session() {
                                     <>
                                         <img src={camera_off} alt="camera_off" width={40} height={40} onClick={() => {
                                             setCameraOn(true)
-                                            example()
+                                            recordVideo()
                                         }} className='cursor-pointer' />
 
                                         <div className='flex w-4/5 ml-16 h-1/2 p-20 bg-gradient-to-r from-purple-600 to-blue-500 rounded-md justify-center items-center'>
@@ -130,9 +171,25 @@ function Session() {
 
 
 
+
                             <div className='flex justify-center items-center cursor-default'>
-                                <button  onClick={()=>setIndex(index+1)} className='text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-l px-5 py-2.5 text-center me-2 mt-5 mr-5'>Next Question</button>
+                                <button onClick={() => setIndex(index + 1)} className='text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-l px-5 py-2.5 text-center me-2 mt-5 mr-5'>Next Question</button>
                             </div>
+
+
+                            <div className='flex justify-center items-center cursor-default'>
+                                <button className='mt-5 mr-4' onClick={() => playButtonPressed()}>
+                                    {
+                                        recordingStarted ? <img src={pause} width={30} height={30} alt="Pause" /> : <img src={play} width={35} height={35} alt="Start" />
+                                    }
+                                </button>
+
+                                <button className='mt-5 mr-4' onClick={() => { downloadVideo(); }}>
+                                    <img src={stop} width={35} height={35} alt="End" />
+                                </button>
+                            </div>
+
+
 
 
 
