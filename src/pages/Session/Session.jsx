@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SidebarComponent from '../../components/SidebarComponent/SidebarComponent';
 
 import { useRecordWebcam } from "react-record-webcam";
@@ -16,19 +16,20 @@ import stop from '../../assets/stop.png';
 
 function Session() {
 
-    const [questionList, setQuestionList] = useState([
-        'Tell me about yourself',
-        'What project did you work on during your Full Stack Developer Internship at Greyfeathers Pvt. Ltd. and what technologies did you use?',
-        'Can you explain how you utilized ML algorithms like Na¨ıve Bayes, SVM, and Random Forest in the development of DocBot?',
-        'Can you describe your experience working remotely for Orane Intelli Solutions and the challenges you faced?',
-        'What inspired the creation of NoteVault and how does it benefit the students of SPIT?',
-        'How does Krishi Sathi connect farmers and lending institutions, and what was your role in its development?',
-        'What hands-on experience did you gain while working on different projects and internships in terms of languages and technologies?',
-        'How have you applied your academic learnings from your Bachelor\'s Degree in Computer Engineering and your Diploma in Computer Engineering to your internships and projects?',
-        'Can you explain a situation where you had to use your skills with React Native, Firebase, MongoDB in a practical scenario?',
-        'How familiar are you with MongoDB, MySql Workbench, and Tally ERP-9.0 and can you give examples of when you\'ve used these in a project or professional setting?',
-        'You were the runner up at Vidyalankar Hackathon and qualified for SIH screening, could you please tell us more about your experience during the Hackathon and how you approached it?'
-    ]);
+    const [questionList, setQuestionList] = useState([]);
+
+    useEffect(() => {
+        // Retrieve FinalQuestionList from local storage
+        const storedFinalQuestionList = localStorage.getItem('FinalQuestionList');
+
+        if (storedFinalQuestionList) {
+            // Parse the stored JSON string back into an array
+            const parsedFinalQuestionList = JSON.parse(storedFinalQuestionList);
+            setQuestionList(parsedFinalQuestionList);
+            console.log(parsedFinalQuestionList);
+        }
+    }, []);
+
     const [cameraOn, setCameraOn] = useState(false);
     const [index, setIndex] = useState(0);
 
@@ -160,7 +161,7 @@ function Session() {
                                         }} className='cursor-pointer' />
 
                                         <div className='flex w-4/5 ml-16 h-1/2 p-20 bg-gradient-to-r from-purple-600 to-blue-500 rounded-md justify-center items-center'>
-                                            <div class="flex justify-center items-center w-32 h-32 bg-white rounded-full">
+                                            <div className="flex justify-center items-center w-32 h-32 bg-white rounded-full">
                                                 <img src={video} alt="video" width={100} height={100} />
                                             </div>
                                         </div>
@@ -170,10 +171,14 @@ function Session() {
                             }
 
 
+                            <div className='flex flex-row justify-center items-center'>
+                                <div className='flex justify-center items-center cursor-default'>
+                                    <button onClick={() => index == 0 ? setIndex(0) : setIndex(index-1)} className='text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-l px-5 py-2.5 text-center me-2 mt-5 mr-5'>Previous</button>
+                                </div>
 
-
-                            <div className='flex justify-center items-center cursor-default'>
-                                <button onClick={() => setIndex(index + 1)} className='text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-l px-5 py-2.5 text-center me-2 mt-5 mr-5'>Next Question</button>
+                                <div className='flex justify-center items-center cursor-default'>
+                                    <button onClick={() => index == questionList.length -1 ? setIndex(index) : setIndex(index+1) } className='text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-l px-5 py-2.5 text-center me-2 mt-5 mr-5'>Next</button>
+                                </div>
                             </div>
 
 
@@ -188,12 +193,6 @@ function Session() {
                                     <img src={stop} width={35} height={35} alt="End" />
                                 </button>
                             </div>
-
-
-
-
-
-
 
 
                         </div>

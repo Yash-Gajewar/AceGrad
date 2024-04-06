@@ -14,7 +14,12 @@ import { Unstable_NumberInput as BaseNumberInput } from '@mui/base/Unstable_Numb
 import { styled } from '@mui/system';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
+import axios from 'axios';
 
+import { useNavigate } from 'react-router-dom';
+
+
+var FinalQuestionList = [];
 
 
 const NumberInput = React.forwardRef(function CustomNumberInput(props, ref) {
@@ -43,12 +48,21 @@ const NumberInput = React.forwardRef(function CustomNumberInput(props, ref) {
 
 function Interview() {
 
+    const navigate = useNavigate();
+
     const InterviewerType = ['Professional', 'Friendly', 'Technical', 'Behavioural'];
+
+    const [role, setRole] = useState('');
+    const [company, setCompany] = useState('');
+
     const [interviewer, setInterviewer] = useState('');
     const [addQuestion, setAddQuestion] = useState(false);
     const [question, setQuestion] = useState('');
 
-    const [selectedFile, setSelectedFile] = useState("No file chosen");
+    const [numberOfQuestions, setNumberOfQuestions] = useState('10');
+
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [selectedFileName, setSelectedFileName] = useState("No file chosen");
 
 
     const [questionList, setQuestionList] = useState([
@@ -81,7 +95,39 @@ function Interview() {
     };
 
 
+    const handleStartInterview = async (e) => {
+        e.preventDefault();
 
+        const formData = new FormData();
+        formData.append('role', role);
+        formData.append('company', company);
+        formData.append('interviewer', interviewer);
+        formData.append('numberOfQuestions', numberOfQuestions);
+        formData.append('resume', selectedFile);
+
+        try {
+            const response = await axios.post('http://127.0.0.1:8000/api/generative_ai/get-questions/', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+
+            questionList.map((question) => {
+                FinalQuestionList.push(question);
+            });
+
+            for (var i = 0; i < response.data.length; i++) {
+                FinalQuestionList.push(response.data[i]);
+            }
+
+            localStorage.setItem('FinalQuestionList', JSON.stringify(FinalQuestionList));
+            navigate('/session');
+
+
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
 
 
@@ -120,7 +166,9 @@ function Interview() {
                     {/* Role */}
 
                     <div className='mb-2 mt-2 mr-10'>
-                        <input type="text" placeholder="Enter Your Role eg. Software Enginner" className='p-2.5 rounded-lg w-full' />
+                        <input type="text" placeholder="Enter Your Role eg. Software Enginner" className='p-2.5 rounded-lg w-full'
+                            onChange={(e) => setRole(e.target.value)}
+                        />
                     </div>
 
                     {/* Company and Interviewer Type */}
@@ -128,7 +176,9 @@ function Interview() {
                     <div className='CompanyInterviewerContainer justify-center items-center'>
 
                         <div className="CompanyContainer">
-                            <input type="text" placeholder="Type any Company" className='p-2.5 rounded-lg w-full' />
+                            <input type="text" placeholder="Type any Company" className='p-2.5 rounded-lg w-full'
+                                onChange={(e) => setCompany(e.target.value)}
+                            />
                         </div>
 
                         <div className="InterviewerContainer ml-10">
@@ -229,7 +279,13 @@ function Interview() {
                                 <input
                                     type="file"
                                     id="custom-input"
-                                    onChange={(e) => setSelectedFile(e.target.files[0].name)}
+
+                                    onChange={(e) => {
+                                        setSelectedFileName(e.target.files[0].name)
+                                        setSelectedFile(e.target.files[0])
+                                    }
+
+                                    }
                                     hidden
                                 />
                                 <label
@@ -238,17 +294,20 @@ function Interview() {
                                 >
                                     Upload Resume
                                 </label>
-                                <label class="text-sm text-slate-500">{selectedFile}</label>
+                                <label class="text-sm text-slate-500">{selectedFileName}</label>
                             </div>
 
                             <div className='flex justify-center items-center mt-2'>
-                                <div className='mr-5'>Number of Questions</div> <NumberInput aria-label="Quantity Input" min={1} max={99} />;
+                                <div className='mr-5'>Number of Questions</div> <NumberInput aria-label="Quantity Input" min={1} max={99}
+                                    value={numberOfQuestions}
+                                    onChange={(e) => setNumberOfQuestions(e.target.value)}
+                                />;
                             </div>
 
 
 
                             <div className='flex justify-center items-center cursor-default'>
-                                <a href='/session' className='text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-l px-5 py-2.5 text-center me-2 mt-5 mr-5'>Start Interview</a>
+                                <button onClick={handleStartInterview} className='text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-l px-5 py-2.5 text-center me-2 mt-5 mr-5'>Start Interview</button>
                             </div>
 
 
