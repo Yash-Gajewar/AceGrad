@@ -70,25 +70,24 @@ function Interview() {
     ]);
     const [cameraOn, setCameraOn] = useState(false);
 
+    const [recordingId, setRecordingId] = useState(null);
+
 
     const {
         activeRecordings,
         createRecording,
         openCamera,
-        startRecording,
-        stopRecording,
         closeCamera
     } = useRecordWebcam();
 
 
-    const example = async () => {
+    const cameraPressed = async () => {
         try {
             const recording = await createRecording();
             if (!recording) return;
+            setRecordingId(recording.id);
             await openCamera(recording.id);
-            await startRecording(recording.id);
-            await new Promise((resolve) => setTimeout(resolve, 3000));
-            await stopRecording(recording.id);
+           
         } catch (error) {
             console.error({ error });
         }
@@ -246,6 +245,7 @@ function Interview() {
                                     <>
                                         <img src={camera_on} alt="camera_on" width={40} height={40} onClick={() => {
                                             setCameraOn(false)
+                                            closeCamera(recordingId);
                                         }} className='cursor-pointer' />
 
                                         <div className='w-4/5 ml-16 h-8/9'>
@@ -262,7 +262,7 @@ function Interview() {
                                     <>
                                         <img src={camera_off} alt="camera_off" width={40} height={40} onClick={() => {
                                             setCameraOn(true)
-                                            example()
+                                            cameraPressed();
                                         }} className='cursor-pointer' />
 
                                         <div className='flex w-4/5 ml-16 h-1/2 p-20 bg-gradient-to-r from-purple-600 to-blue-500 rounded-md justify-center items-center'>

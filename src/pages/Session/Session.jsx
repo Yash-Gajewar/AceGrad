@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import SidebarComponent from '../../components/SidebarComponent/SidebarComponent';
 
-import { useRecordWebcam } from "react-record-webcam";
+import { useRecordWebcam, RecordWebcam } from "react-record-webcam";
 import '../Interview/Interview.css';
 import help from '../../assets/help.png';
 
@@ -13,8 +13,14 @@ import play from '../../assets/play.png';
 import pause from '../../assets/pause.png';
 import stop from '../../assets/stop.png';
 
+import { storage } from '../../firebase';
+import { ref, uploadBytes } from "firebase/storage";
+import { v4 } from 'uuid';
+
 
 function Session() {
+
+
 
     const [questionList, setQuestionList] = useState([]);
 
@@ -26,7 +32,6 @@ function Session() {
             // Parse the stored JSON string back into an array
             const parsedFinalQuestionList = JSON.parse(storedFinalQuestionList);
             setQuestionList(parsedFinalQuestionList);
-            console.log(parsedFinalQuestionList);
         }
     }, []);
 
@@ -35,7 +40,8 @@ function Session() {
 
     const [recordingId, setRecordingId] = useState("");
 
-    const { createRecording, openCamera, startRecording, stopRecording, download, activeRecordings, pauseRecording, resumeRecording } = useRecordWebcam()
+    const { createRecording, openCamera, closeCamera, startRecording, stopRecording, download, activeRecordings, pauseRecording, resumeRecording } = useRecordWebcam()
+
 
     const [recordingStarted, setRecordingStarted] = useState(false);
     const [startInterviewDisabled, setStartInterviewDisabled] = useState(false);
@@ -46,17 +52,45 @@ function Session() {
             if (!recording) return;
 
             setRecordingId(recording.id);
-
             await openCamera(recording.id);
+
         } catch (error) {
             console.error({ error });
         }
     };
 
-    const downloadVideo = async () => {
-        await stopRecording(recordingId);
+
+    // upload video to firebase
+    const uploadVideo = async () => {
+        
+        const video = await stopRecording(recordingId);
         await download(recordingId);
+
+        console.log(video.fileName)
+    
+        // stopRecording(recordingId).then((video) => {
+        //     const videoRef = ref(storage, `${recordingId + v4()}.webm`);
+
+        //     uploadBytes(videoRef, video).then((snapshot) => {
+        //         alert("Video uploaded successfully");
+
+        //     }
+        //     );
+        // });
+
+        // const video = await stopRecording(recordingId);
+
+        // const videoRef = ref(storage, `${recordingId + v4()}.webm`);
+
+        // console.log(video)
+    
+        // uploadBytes(videoRef, video.Blob).then((snapshot) => {
+        //     alert("Video uploaded successfully");
+        // }
+        // );
     }
+
+
 
     const playButtonPressed = async () => {
 
@@ -141,6 +175,7 @@ function Session() {
                                     <>
                                         <img src={camera_on} alt="camera_on" width={40} height={40} onClick={() => {
                                             setCameraOn(false)
+                                            closeCamera(recordingId)
                                         }} className='cursor-pointer' />
 
                                         <div className='w-4/5 ml-16 h-8/9'>
@@ -173,11 +208,11 @@ function Session() {
 
                             <div className='flex flex-row justify-center items-center'>
                                 <div className='flex justify-center items-center cursor-default'>
-                                    <button onClick={() => index == 0 ? setIndex(0) : setIndex(index-1)} className='text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-l px-5 py-2.5 text-center me-2 mt-5 mr-5'>Previous</button>
+                                    <button onClick={() => index == 0 ? setIndex(0) : setIndex(index - 1)} className='text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-l px-5 py-2.5 text-center me-2 mt-5 mr-5'>Previous</button>
                                 </div>
 
                                 <div className='flex justify-center items-center cursor-default'>
-                                    <button onClick={() => index == questionList.length -1 ? setIndex(index) : setIndex(index+1) } className='text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-l px-5 py-2.5 text-center me-2 mt-5 mr-5'>Next</button>
+                                    <button onClick={() => index == questionList.length - 1 ? setIndex(index) : setIndex(index + 1)} className='text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-l px-5 py-2.5 text-center me-2 mt-5 mr-5'>Next</button>
                                 </div>
                             </div>
 
@@ -189,7 +224,7 @@ function Session() {
                                     }
                                 </button>
 
-                                <button className='mt-5 mr-4' onClick={() => { downloadVideo(); }}>
+                                <button className='mt-5 mr-4' onClick={() => { uploadVideo(); }}>
                                     <img src={stop} width={35} height={35} alt="End" />
                                 </button>
                             </div>
