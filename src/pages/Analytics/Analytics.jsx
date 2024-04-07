@@ -73,17 +73,20 @@ function Analytics() {
 
                     {/* parent div making second row containing insights button and insights div */}
 
-                    <div className={`${!collapsed ? 'hidden' : ''} flex flex-row justify-center items-center h-fit mt-5 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium text-l px-5 py-2.5 text-center me-2 mr-5
+                    <div className={`${!collapsed ? 'hidden' : ''} flex flex-row justify-center items-center h-fit mt-5 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium text-l px-5 py-2.5 text-center mr-5
                     rounded-2xl
                     `}
                         onClick={() => setCollapsed(!collapsed)}
                     >
-                        <img src={insights_icon} alt='insights_icon' className='w-5 h-5 mr-2 cursor-pointer' />
 
-                        <button>Insights</button>
+                        
+                        
+                        <img src={insights_icon} alt='insights_icon' className='w-5 h-5 ml-2 mr-2 cursor-pointer' />
+                        <p className='text-sm font-normal cursor-pointer'>INSIGHTS</p>
+                       
                     </div>
 
-                    <div className={`${collapsed ? 'hidden' : ''} w-full transition-all duration-500 ease-in-out transform translate-x-0`} style={{ maxWidth: collapsed ? '0' : '100vw', overflow: 'hidden' }}>
+                    <div className={`${collapsed ? 'hidden' : ''} w-full ml-2 mr-2 transition-all duration-500 ease-in-out transform translate-x-0`} style={{ maxWidth: collapsed ? '0' : '100vw', overflow: 'hidden' }}>
 
                         <AnalyticsComponent
                             collapsed={collapsed}
@@ -91,10 +94,9 @@ function Analytics() {
                         />
                     </div>
 
-
-
                 </div>
 
+                
 
             </div>
 
