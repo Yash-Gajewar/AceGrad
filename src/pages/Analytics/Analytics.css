@@ -1,0 +1,25 @@
+.AnalyticsContainer {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+        "heading heading"
+        "video video"
+        "analytics analytics";
+}
+
+
+.AnalyticsHeading {
+    background-color: rgb(212, 251, 251);
+    grid-area: heading;
+    background-color: #EEEFFE;
+}
+
+
+.AnalyticsVideo {
+    background-color: antiquewhite;
+    grid-area: video;
+    margin: 1.5rem;
+    padding: 1rem;
+}

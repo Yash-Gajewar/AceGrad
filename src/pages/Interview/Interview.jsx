@@ -87,7 +87,7 @@ function Interview() {
             if (!recording) return;
             setRecordingId(recording.id);
             await openCamera(recording.id);
-           
+
         } catch (error) {
             console.error({ error });
         }
@@ -135,7 +135,6 @@ function Interview() {
         <div className='flex'>
 
             {/* side bar div */}
-
             <SidebarComponent />
             {/* main content div */}
 
