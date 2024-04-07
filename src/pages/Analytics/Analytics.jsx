@@ -83,13 +83,15 @@ function Analytics() {
                         <button>Insights</button>
                     </div>
 
-                    <div className={`${collapsed ? 'hidden' : ''} w-full`} >
+                    <div className={`${collapsed ? 'hidden' : ''} w-full transition-all duration-500 ease-in-out transform translate-x-0`} style={{ maxWidth: collapsed ? '0' : '100vw', overflow: 'hidden' }}>
 
-                        <AnalyticsComponent 
+                        <AnalyticsComponent
                             collapsed={collapsed}
                             setCollapsed={setCollapsed}
                         />
                     </div>
+
+
 
                 </div>
 
