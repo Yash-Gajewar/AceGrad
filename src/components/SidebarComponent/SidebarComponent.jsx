@@ -22,7 +22,7 @@ const SidebarComponent = () => {
     };
 
   return (
-    <div className={`sidebar ${collapsed ? 'collapsed' : ''} relative`}>
+    <div className={`sidebar ${collapsed ? 'collapsed' : ''} relative h-full`}>
                 <Sidebar collapsed={collapsed}>
                     <Menu>
                         <MenuItem onClick={handleToggleSidebar} className='mt-12'>

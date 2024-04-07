@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import SidebarComponent from '../../components/SidebarComponent/SidebarComponent';
 import AnalyticsComponent from '../../components/AnalyticsComponent/AnalyticsComponent';
+import insights_icon from '../../assets/insights_icon.png';
 
 
 function Analytics() {
@@ -72,16 +73,22 @@ function Analytics() {
 
                     {/* parent div making second row containing insights button and insights div */}
 
-                    <div className= 'mt-5'>
-                        <button className={`${!collapsed ? 'hidden' : ''} text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-l px-5 py-2.5 text-center me-2 mr-5 self-end`}
-                            onClick={() => setCollapsed(!collapsed)}
-                        >
-                            Insights</button>
+                    <div className={`${!collapsed ? 'hidden' : ''} flex flex-row justify-center items-center h-fit mt-5 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium text-l px-5 py-2.5 text-center me-2 mr-5
+                    rounded-2xl
+                    `}
+                        onClick={() => setCollapsed(!collapsed)}
+                    >
+                        <img src={insights_icon} alt='insights_icon' className='w-5 h-5 mr-2 cursor-pointer' />
+
+                        <button>Insights</button>
                     </div>
 
-                    <div className= {`${collapsed ? 'hidden' : ''} w-full`} >
-                        
-                       <AnalyticsComponent />
+                    <div className={`${collapsed ? 'hidden' : ''} w-full`} >
+
+                        <AnalyticsComponent 
+                            collapsed={collapsed}
+                            setCollapsed={setCollapsed}
+                        />
                     </div>
 
                 </div>
