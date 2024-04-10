@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SidebarComponent from '../../components/SidebarComponent/SidebarComponent';
-import { useRecordWebcam } from "react-record-webcam";
+
+import { useRecordWebcam, RecordWebcam } from "react-record-webcam";
 import '../Interview/Interview.css';
 import help from '../../assets/help.png';
 
@@ -8,48 +9,110 @@ import camera_on from '../../assets/camera-on.png';
 import camera_off from '../../assets/camera-off.png';
 import video from '../../assets/video.png';
 
+import play from '../../assets/play.png';
+import pause from '../../assets/pause.png';
+import stop from '../../assets/stop.png';
+
+import { storage } from '../../firebase';
+import { ref, uploadBytes } from "firebase/storage";
+import { v4 } from 'uuid';
+
 
 function Session() {
 
-    const [questionList, setQuestionList] = useState([
-        'Tell me about yourself',
-        'What project did you work on during your Full Stack Developer Internship at Greyfeathers Pvt. Ltd. and what technologies did you use?',
-        'Can you explain how you utilized ML algorithms like Na¨ıve Bayes, SVM, and Random Forest in the development of DocBot?',
-        'Can you describe your experience working remotely for Orane Intelli Solutions and the challenges you faced?',
-        'What inspired the creation of NoteVault and how does it benefit the students of SPIT?',
-        'How does Krishi Sathi connect farmers and lending institutions, and what was your role in its development?',
-        'What hands-on experience did you gain while working on different projects and internships in terms of languages and technologies?',
-        'How have you applied your academic learnings from your Bachelor\'s Degree in Computer Engineering and your Diploma in Computer Engineering to your internships and projects?',
-        'Can you explain a situation where you had to use your skills with React Native, Firebase, MongoDB in a practical scenario?',
-        'How familiar are you with MongoDB, MySql Workbench, and Tally ERP-9.0 and can you give examples of when you\'ve used these in a project or professional setting?',
-        'You were the runner up at Vidyalankar Hackathon and qualified for SIH screening, could you please tell us more about your experience during the Hackathon and how you approached it?'
-    ]);
+
+
+    const [questionList, setQuestionList] = useState([]);
+
+    useEffect(() => {
+        // Retrieve FinalQuestionList from local storage
+        const storedFinalQuestionList = localStorage.getItem('FinalQuestionList');
+
+        if (storedFinalQuestionList) {
+            // Parse the stored JSON string back into an array
+            const parsedFinalQuestionList = JSON.parse(storedFinalQuestionList);
+            setQuestionList(parsedFinalQuestionList);
+        }
+    }, []);
+
     const [cameraOn, setCameraOn] = useState(false);
     const [index, setIndex] = useState(0);
 
+    const [recordingId, setRecordingId] = useState("");
 
-    const {
-        activeRecordings,
-        createRecording,
-        openCamera,
-        startRecording,
-        stopRecording,
-        closeCamera
-    } = useRecordWebcam();
+    const { createRecording, openCamera, closeCamera, startRecording, stopRecording, download, activeRecordings, pauseRecording, resumeRecording } = useRecordWebcam()
 
 
-    const example = async () => {
+    const [recordingStarted, setRecordingStarted] = useState(false);
+    const [startInterviewDisabled, setStartInterviewDisabled] = useState(false);
+
+    const recordVideo = async () => {
         try {
             const recording = await createRecording();
             if (!recording) return;
+
+            setRecordingId(recording.id);
             await openCamera(recording.id);
-            await startRecording(recording.id);
-            await new Promise((resolve) => setTimeout(resolve, 3000));
-            await stopRecording(recording.id);
+
         } catch (error) {
             console.error({ error });
         }
     };
+
+
+    // upload video to firebase
+    const uploadVideo = async () => {
+        
+        const video = await stopRecording(recordingId);
+        await download(recordingId);
+
+        console.log(video.fileName)
+    
+        // stopRecording(recordingId).then((video) => {
+        //     const videoRef = ref(storage, `${recordingId + v4()}.webm`);
+
+        //     uploadBytes(videoRef, video).then((snapshot) => {
+        //         alert("Video uploaded successfully");
+
+        //     }
+        //     );
+        // });
+
+        // const video = await stopRecording(recordingId);
+
+        // const videoRef = ref(storage, `${recordingId + v4()}.webm`);
+
+        // console.log(video)
+    
+        // uploadBytes(videoRef, video.Blob).then((snapshot) => {
+        //     alert("Video uploaded successfully");
+        // }
+        // );
+    }
+
+
+
+    const playButtonPressed = async () => {
+
+        if (recordingStarted) {
+            await pauseRecording(recordingId);
+            setRecordingStarted(false);
+        }
+
+        else {
+            await resumeRecording(recordingId);
+            setRecordingStarted(true);
+        }
+
+    }
+
+    const startInterviewPressed = async () => {
+        await startRecording(recordingId);
+        setRecordingStarted(true);
+        setStartInterviewDisabled(true);
+    }
+
+
 
 
     return (
@@ -80,13 +143,26 @@ function Session() {
 
                 <div className='SessionQuestions bg-white'>
                     <div className='p-5 text-black bg-violet-100 '>
-                        
+
                         {
                             questionList[index]
                         }
 
                     </div>
+
+                    <div className='flex justify-center items-center cursor-default'>
+                        <button
+                            disabled={startInterviewDisabled}
+                            onClick={() => startInterviewPressed()}
+                            className={`text-white ${startInterviewDisabled ? 'cursor-not-allowed bg-gradient-to-br from-gray-400 via-gray-500 to-gray-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800' : 'bg-gradient-to-br from-purple-400 via-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800'} font-medium rounded-lg text-l px-5 py-2.5 text-center me-2 mt-5 mr-5`}
+                        >
+                            Start Interview
+                        </button>
+                    </div>
+
                 </div>
+
+
 
 
                 {/* camera section */}
@@ -99,6 +175,7 @@ function Session() {
                                     <>
                                         <img src={camera_on} alt="camera_on" width={40} height={40} onClick={() => {
                                             setCameraOn(false)
+                                            closeCamera(recordingId)
                                         }} className='cursor-pointer' />
 
                                         <div className='w-4/5 ml-16 h-8/9'>
@@ -115,11 +192,11 @@ function Session() {
                                     <>
                                         <img src={camera_off} alt="camera_off" width={40} height={40} onClick={() => {
                                             setCameraOn(true)
-                                            example()
+                                            recordVideo()
                                         }} className='cursor-pointer' />
 
                                         <div className='flex w-4/5 ml-16 h-1/2 p-20 bg-gradient-to-r from-purple-600 to-blue-500 rounded-md justify-center items-center'>
-                                            <div class="flex justify-center items-center w-32 h-32 bg-white rounded-full">
+                                            <div className="flex justify-center items-center w-32 h-32 bg-white rounded-full">
                                                 <img src={video} alt="video" width={100} height={100} />
                                             </div>
                                         </div>
@@ -129,14 +206,28 @@ function Session() {
                             }
 
 
+                            <div className='flex flex-row justify-center items-center'>
+                                <div className='flex justify-center items-center cursor-default'>
+                                    <button onClick={() => index == 0 ? setIndex(0) : setIndex(index - 1)} className='text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-l px-5 py-2.5 text-center me-2 mt-5 mr-5'>Previous</button>
+                                </div>
 
-                            <div className='flex justify-center items-center cursor-default'>
-                                <button  onClick={()=>setIndex(index+1)} className='text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-l px-5 py-2.5 text-center me-2 mt-5 mr-5'>Next Question</button>
+                                <div className='flex justify-center items-center cursor-default'>
+                                    <button onClick={() => index == questionList.length - 1 ? setIndex(index) : setIndex(index + 1)} className='text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-l px-5 py-2.5 text-center me-2 mt-5 mr-5'>Next</button>
+                                </div>
                             </div>
 
 
+                            <div className='flex justify-center items-center cursor-default'>
+                                <button className='mt-5 mr-4' onClick={() => playButtonPressed()}>
+                                    {
+                                        recordingStarted ? <img src={pause} width={30} height={30} alt="Pause" /> : <img src={play} width={35} height={35} alt="Start" />
+                                    }
+                                </button>
 
-
+                                <button className='mt-5 mr-4' onClick={() => { uploadVideo(); }}>
+                                    <img src={stop} width={35} height={35} alt="End" />
+                                </button>
+                            </div>
 
 
                         </div>
