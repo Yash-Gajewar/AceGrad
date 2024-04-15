@@ -11,29 +11,38 @@ import video from '../../assets/video.png';
 
 import play from '../../assets/play.png';
 import pause from '../../assets/pause.png';
-import stop from '../../assets/stop.png';
+import stop_icon from '../../assets/stop_icon.png';
 
 import { storage } from '../../firebase';
 import { ref, uploadBytes } from "firebase/storage";
 import { v4 } from 'uuid';
 
+import { useCheetah } from "@picovoice/cheetah-react";
+
 
 function Session() {
 
-
-
     const [questionList, setQuestionList] = useState([]);
+    const [transcript, setTranscript] = useState("");
 
-    useEffect(() => {
-        // Retrieve FinalQuestionList from local storage
-        const storedFinalQuestionList = localStorage.getItem('FinalQuestionList');
+    const {
+        result,
+        isLoaded,
+        isListening,
+        error,
+        init,
+        start,
+        stop,
+    } = useCheetah();
 
-        if (storedFinalQuestionList) {
-            // Parse the stored JSON string back into an array
-            const parsedFinalQuestionList = JSON.parse(storedFinalQuestionList);
-            setQuestionList(parsedFinalQuestionList);
-        }
-    }, []);
+    const initEngine = async () => {
+        await init(
+            "3TGsoy0Aky13aXHhvEld4GSQNGhHiqirFH6HbpOT4tPMwOtIqA8ZCA==",
+            { publicPath: "https://yash-gajewar.github.io/Speech_To_Text/filler_words_model.pv" },
+            { enableAutomaticPunctuation: true }
+        );
+    };
+
 
     const [cameraOn, setCameraOn] = useState(false);
     const [index, setIndex] = useState(0);
@@ -45,6 +54,35 @@ function Session() {
 
     const [recordingStarted, setRecordingStarted] = useState(false);
     const [startInterviewDisabled, setStartInterviewDisabled] = useState(false);
+
+    useEffect(() => {
+        // Retrieve FinalQuestionList from local storage
+        const storedFinalQuestionList = localStorage.getItem('FinalQuestionList');
+
+        if (storedFinalQuestionList) {
+            // Parse the stored JSON string back into an array
+            const parsedFinalQuestionList = JSON.parse(storedFinalQuestionList);
+            setQuestionList(parsedFinalQuestionList);
+        }
+
+        initEngine();
+
+    }, []);
+
+
+
+    useEffect(() => {
+        if (result !== null) {
+            setTranscript(prev => {
+                let newTranscript = prev + result.transcript
+                if (result.isComplete) {
+                    newTranscript += " "
+                }
+                return newTranscript
+            })
+        }
+    }, [result])
+
 
     const recordVideo = async () => {
         try {
@@ -62,12 +100,14 @@ function Session() {
 
     // upload video to firebase
     const uploadVideo = async () => {
-        
+
         const video = await stopRecording(recordingId);
         await download(recordingId);
+        await stop();
 
         console.log(video.fileName)
-    
+        console.log(transcript)
+
         // stopRecording(recordingId).then((video) => {
         //     const videoRef = ref(storage, `${recordingId + v4()}.webm`);
 
@@ -83,7 +123,7 @@ function Session() {
         // const videoRef = ref(storage, `${recordingId + v4()}.webm`);
 
         // console.log(video)
-    
+
         // uploadBytes(videoRef, video.Blob).then((snapshot) => {
         //     alert("Video uploaded successfully");
         // }
@@ -97,17 +137,20 @@ function Session() {
         if (recordingStarted) {
             await pauseRecording(recordingId);
             setRecordingStarted(false);
+            await stop();
         }
 
         else {
             await resumeRecording(recordingId);
             setRecordingStarted(true);
+            await start();
         }
 
     }
 
     const startInterviewPressed = async () => {
         await startRecording(recordingId);
+        await start();
         setRecordingStarted(true);
         setStartInterviewDisabled(true);
     }
@@ -152,7 +195,7 @@ function Session() {
 
                     <div className='flex justify-center items-center cursor-default'>
                         <button
-                            disabled={startInterviewDisabled}
+                            disabled={startInterviewDisabled && isLoaded}
                             onClick={() => startInterviewPressed()}
                             className={`text-white ${startInterviewDisabled ? 'cursor-not-allowed bg-gradient-to-br from-gray-400 via-gray-500 to-gray-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800' : 'bg-gradient-to-br from-purple-400 via-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800'} font-medium rounded-lg text-l px-5 py-2.5 text-center me-2 mt-5 mr-5`}
                         >
@@ -225,7 +268,7 @@ function Session() {
                                 </button>
 
                                 <button className='mt-5 mr-4' onClick={() => { uploadVideo(); }}>
-                                    <img src={stop} width={35} height={35} alt="End" />
+                                    <img src={stop_icon} width={35} height={35} alt="End" />
                                 </button>
                             </div>
 

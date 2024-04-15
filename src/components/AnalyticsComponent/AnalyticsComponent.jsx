@@ -68,7 +68,7 @@ const AnalyticsComponent = (props) => {
                     <div className='block mt-5 w-11/12 max-h-96 overflow-y-auto'>
 
                         {
-                            analyticsSelected ? (
+                            !analyticsSelected ? (
 
                                 <>
 
