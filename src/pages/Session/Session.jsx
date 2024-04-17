@@ -19,8 +19,13 @@ import { v4 } from 'uuid';
 
 import { useCheetah } from "@picovoice/cheetah-react";
 
+import { useNavigate } from 'react-router-dom';
+
 
 function Session() {
+
+    const navigate = useNavigate();
+
 
     const [questionList, setQuestionList] = useState([]);
     const [transcript, setTranscript] = useState("");
@@ -65,6 +70,7 @@ function Session() {
             setQuestionList(parsedFinalQuestionList);
         }
 
+
         initEngine();
 
     }, []);
@@ -80,6 +86,8 @@ function Session() {
                 }
                 return newTranscript
             })
+
+            localStorage.setItem('transcript', transcript);
         }
     }, [result])
 
@@ -104,9 +112,13 @@ function Session() {
         const video = await stopRecording(recordingId);
         await download(recordingId);
         await stop();
+    
+        
+        localStorage.setItem('videoFileName', video.fileName);    
 
-        console.log(video.fileName)
-        console.log(transcript)
+        navigate('/analytics');
+            
+        
 
         // stopRecording(recordingId).then((video) => {
         //     const videoRef = ref(storage, `${recordingId + v4()}.webm`);

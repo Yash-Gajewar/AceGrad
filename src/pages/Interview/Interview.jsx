@@ -20,6 +20,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 var FinalQuestionList = [];
+var FinalSuggestionList = [];
 
 
 const NumberInput = React.forwardRef(function CustomNumberInput(props, ref) {
@@ -55,11 +56,11 @@ function Interview() {
     const [role, setRole] = useState('');
     const [company, setCompany] = useState('');
 
-    const [interviewer, setInterviewer] = useState('');
+    const [interviewer, setInterviewer] = useState('Technical');
     const [addQuestion, setAddQuestion] = useState(false);
     const [question, setQuestion] = useState('');
 
-    const [numberOfQuestions, setNumberOfQuestions] = useState('10');
+    const [numberOfQuestions, setNumberOfQuestions] = useState('5');
 
     const [selectedFile, setSelectedFile] = useState(null);
     const [selectedFileName, setSelectedFileName] = useState("No file chosen");
@@ -105,21 +106,31 @@ function Interview() {
         formData.append('resume', selectedFile);
 
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/generative_ai/get-questions/', formData, {
+            const response = await axios.post('http://127.0.0.1:8000/api/generative_ai/get-questions-suggestions/', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
 
+            // console.log(response.data);
+
+            // console.log(response.data["questions"]);
+            // console.log(response.data["suggestions"]);
+
             questionList.map((question) => {
                 FinalQuestionList.push(question);
             });
 
-            for (var i = 0; i < response.data.length; i++) {
-                FinalQuestionList.push(response.data[i]);
+            for (var i = 0; i < response.data["questions"].length; i++) {
+                FinalQuestionList.push(response.data["questions"][i]);
+                FinalSuggestionList.push(response.data["suggestions"][i]);
             }
+            
+            console.log(FinalQuestionList);
+            console.log(FinalSuggestionList);
 
             localStorage.setItem('FinalQuestionList', JSON.stringify(FinalQuestionList));
+            localStorage.setItem('FinalSuggestionList', JSON.stringify(FinalSuggestionList));
             navigate('/session');
 
 

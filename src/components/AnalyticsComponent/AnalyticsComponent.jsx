@@ -6,6 +6,9 @@ import { Accordion } from "flowbite-react";
 const AnalyticsComponent = (props) => {
 
     const [analyticsSelected, setAnalyticsSelected] = useState(true)
+    const [questionListIndex, setQuestionListIndex] = useState(0)
+    const minLength = Math.min(props.questionList.length, props.suggestionList.length);
+
 
     return (
 
@@ -72,77 +75,76 @@ const AnalyticsComponent = (props) => {
 
                                 <>
 
-                                    <div className='bg-white w-62 rounded-lg p-5 justify-center items-start border border-blue-200 m-4 text-blue-900 text-sm font-semibold'>
-                                        Hello, sir, my name is and I'm from Kan. I have pursued my civil engineering degree from Dake College from Mumbai University itself, post which I got an, uh,  job opportunity to work as a structural engineer and Australia based company. Uh,  its name is Ley.
-                                    </div>
 
-                                    <div className='bg-white w-62 rounded-lg p-5 justify-center items-start border border-blue-200 m-4 text-blue-900 text-sm font-semibold'>
-                                        Hello, sir, my name is and I'm from Kan. I have pursued my civil engineering degree from Dake College from Mumbai University itself, post which I got an, uh,  job opportunity to work as a structural engineer and Australia based company. Uh,  its name is Ley.
-                                    </div>
 
-                                    <div className='bg-white w-62 rounded-lg p-5 justify-center items-start border border-blue-200 m-4 text-blue-900 text-sm font-semibold'>
-                                        Hello, sir, my name is and I'm from Kan. I have pursued my civil engineering degree from Dake College from Mumbai University itself, post which I got an, uh,  job opportunity to work as a structural engineer and Australia based company. Uh,  its name is Ley.
-                                    </div>
+                                    {
 
-                                    <div className='bg-white w-62 rounded-lg p-5 justify-center items-start border border-blue-200 m-4 text-blue-900 text-sm font-semibold'>
-                                        Hello, sir, my name is and I'm from Kan. I have pursued my civil engineering degree from Dake College from Mumbai University itself, post which I got an, uh,  job opportunity to work as a structural engineer and Australia based company. Uh,  its name is Ley.
-                                    </div>
 
-                                    <div className='bg-white w-62 rounded-lg p-5 justify-center items-start border border-blue-200 m-4 text-blue-900 text-sm font-semibold'>
-                                        Hello, sir, my name is and I'm from Kan. I have pursued my civil engineering degree from Dake College from Mumbai University itself, post which I got an, uh,  job opportunity to work as a structural engineer and Australia based company. Uh,  its name is Ley.
-                                    </div>
+                                        <div className='flex justify-center items-center w-full'>
+                                            <div className='block mt-12 w-full max-h-80 overflow-y-auto'>
+                                                {/* Iterate over both lists simultaneously */}
+                                                {Array.from({ length: minLength }, (_, index) => (
+                                                    <div key={index} className='flex flex-col justify-center items-start'>
+                                                        {/* Display question from QuestionList */}
+                                                        <div className='bg-white w-62 rounded-lg p-5 border border-blue-200 m-4 text-blue-900 text-sm font-semibold'>
+                                                            {props.questionList[index]}
+                                                        </div>
+                                                        {/* Display suggestion from SuggestionList */}
+                                                        <div className='bg-white w-62 rounded-lg p-5 border border-blue-200 m-4 text-blue-900 text-sm font-semibold'>
+                                                            {props.suggestionList[index]}
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
 
-                                    <div className='bg-white w-62 rounded-lg p-5 justify-center items-start border border-blue-200 m-4 text-blue-900 text-sm font-semibold'>
-                                        Hello, sir, my name is and I'm from Kan. I have pursued my civil engineering degree from Dake College from Mumbai University itself, post which I got an, uh,  job opportunity to work as a structural engineer and Australia based company. Uh,  its name is Ley.
-                                    </div>
 
-                                    <div className='bg-white w-62 rounded-lg p-5 justify-center items-start border border-blue-200 m-4 text-blue-900 text-sm font-semibold'>
-                                        Hello, sir, my name is and I'm from Kan. I have pursued my civil engineering degree from Dake College from Mumbai University itself, post which I got an, uh,  job opportunity to work as a structural engineer and Australia based company. Uh,  its name is Ley.
-                                    </div>
+                                    }
+
 
                                 </>
                             ) : (
                                 <Accordion collapseAll>
                                     <Accordion.Panel style={{ marginTop: '20px' }}>
-                                        <Accordion.Title  className='p-2 text-lg font-medium'>Non Inclusiveness</Accordion.Title>
+                                        <Accordion.Title className='p-2 text-lg font-medium'>Non Inclusiveness</Accordion.Title>
                                         <Accordion.Content className='m-5'>
-                                           <div className='flex justify-center items-center w-full h-16 bg-indigo-50 text-blue-900'>
+                                            <div className='flex justify-center items-center w-full h-16 bg-indigo-50 text-blue-900'>
                                                 Nice Job! We did not find any non inclusiveness in your speech.
-                                           </div>
+                                            </div>
                                         </Accordion.Content>
                                     </Accordion.Panel>
 
 
-                                    <Accordion.Panel  style={{ marginTop: '20px' }}>
-                                        <Accordion.Title  className='p-2 text-lg font-medium'>Non Inclusiveness</Accordion.Title>
+                                    <Accordion.Panel style={{ marginTop: '20px' }}>
+                                        <Accordion.Title className='p-2 text-lg font-medium'>Non Inclusiveness</Accordion.Title>
                                         <Accordion.Content className='m-5'>
-                                           <div className='flex justify-center items-center w-full h-16 bg-indigo-50 text-blue-900'>
+                                            <div className='flex justify-center items-center w-full h-16 bg-indigo-50 text-blue-900'>
                                                 Nice Job! We did not find any non inclusiveness in your speech.
-                                           </div>
+                                            </div>
                                         </Accordion.Content>
                                     </Accordion.Panel>
 
 
-                                    <Accordion.Panel  className='mt-5'>
-                                        <Accordion.Title  className='p-2 text-lg font-medium'>Non Inclusiveness</Accordion.Title>
+                                    <Accordion.Panel className='mt-5'>
+                                        <Accordion.Title className='p-2 text-lg font-medium'>Non Inclusiveness</Accordion.Title>
                                         <Accordion.Content className='m-5'>
-                                           <div className='flex justify-center items-center w-full h-16 bg-indigo-50 text-blue-900'>
+                                            <div className='flex justify-center items-center w-full h-16 bg-indigo-50 text-blue-900'>
                                                 Nice Job! We did not find any non inclusiveness in your speech.
-                                           </div>
+                                            </div>
                                         </Accordion.Content>
                                     </Accordion.Panel>
 
 
-                                    <Accordion.Panel  className='mt-5'>
-                                        <Accordion.Title  className='p-2 text-lg font-medium'>Non Inclusiveness</Accordion.Title>
+                                    <Accordion.Panel className='mt-5'>
+                                        <Accordion.Title className='p-2 text-lg font-medium'>Non Inclusiveness</Accordion.Title>
                                         <Accordion.Content className='m-5'>
-                                           <div className='flex justify-center items-center w-full h-16 bg-indigo-50 text-blue-900'>
+                                            <div className='flex justify-center items-center w-full h-16 bg-indigo-50 text-blue-900'>
                                                 Nice Job! We did not find any non inclusiveness in your speech.
-                                           </div>
+                                            </div>
                                         </Accordion.Content>
                                     </Accordion.Panel>
-  
-                                    
+
+
                                 </Accordion>
                             )
                         }
