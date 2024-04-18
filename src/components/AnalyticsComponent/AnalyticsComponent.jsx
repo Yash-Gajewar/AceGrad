@@ -66,7 +66,7 @@ const AnalyticsComponent = (props) => {
         props.collapsed ? <></> : (
 
             // parent div
-            <div className='flex flex-col items-center w-full h-full bg-white'>
+            <div className='flex flex-col items-center max-w-full h-full bg-white'>
 
                 {/* heading div */}
 
@@ -114,11 +114,11 @@ const AnalyticsComponent = (props) => {
 
                 {/* div containing insights and suggestions */}
 
-                <div className='flex flex-col w-full justify-center items-center' >
+                <div className='flex flex-col max-w-96 justify-center items-center' >
 
                     {/* div to make scrollable suggestions and insights */}
 
-                    <div className='block mt-5 w-11/12 max-h-96 overflow-y-auto'>
+                    <div className='block mt-5 max-w-96 max-h-96 overflow-y-auto'>
 
                         {
                             !analyticsSelected ? (
@@ -154,7 +154,10 @@ const AnalyticsComponent = (props) => {
 
                                 </>
                             ) : (
-                                <Accordion collapseAll>
+
+
+
+                                <Accordion collapseAll className='w-full'>
                                     <Accordion.Panel style={{ marginTop: '20px' }}>
                                         <Accordion.Title className='p-2 text-lg font-medium'>{
                                             `Filler Words (${fillerWordsCount} / ${fillerWordsPercentage}%)`
@@ -185,11 +188,11 @@ const AnalyticsComponent = (props) => {
                                         <div className='m-4'>
                                             <Accordion.Content className='m-5'>
                                                 <div className='flex justify-center items-center w-full h-16 bg-indigo-50 text-blue-900 p-11'>
-                                                   {
+                                                    {
                                                         weakWordsCount > 0 ? (
                                                             `You have used ${weakWordsCount} weak words in your speech. You can improve by using more strong words.`
                                                         ) : 'Nice Job! We did not find any weak words in your speech.'
-                                                   }
+                                                    }
                                                 </div>
                                             </Accordion.Content>
                                         </div>
@@ -205,11 +208,11 @@ const AnalyticsComponent = (props) => {
                                         <div className='m-4'>
                                             <Accordion.Content className='m-5'>
                                                 <div className='flex justify-center items-center w-full h-16 bg-indigo-50 text-blue-900 p-11'>
-                                                   {
+                                                    {
                                                         sentenceStartersCount > 0 ? (
                                                             `You have repeated  sentence starters ${sentenceStartersCount} % times in your speech. You can improve by using more strong words.`
                                                         ) : 'Nice Job! We did not find any repetition of sentence starters in your speech.'
-                                                   }
+                                                    }
                                                 </div>
                                             </Accordion.Content>
                                         </div>
@@ -229,7 +232,7 @@ const AnalyticsComponent = (props) => {
                                                         negativeWordsCount > 0 ? (
                                                             `You have used ${negativeWordsCount} negative words in your speech. Avoid using negative words in your interview.`
                                                         ) : 'Nice Job! We did not find any negative words in your speech.'
-                                                    
+
                                                     }
                                                 </div>
                                             </Accordion.Content>
@@ -238,6 +241,8 @@ const AnalyticsComponent = (props) => {
 
 
                                 </Accordion>
+
+
                             )
                         }
 

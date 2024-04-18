@@ -78,9 +78,9 @@ function Analytics() {
 
 
                         <div className='flex justify-center items-center w-full'>
-                            <div className='block mt-12 w-3/4 max-h-64 overflow-y-auto'>
+                            <div className='block mt-12 w-3/4 max-h-80 overflow-y-auto'>
                                 {/* Render the grouped div elements */}
-                                <div className='bg-white w-62 rounded-lg p-5 justify-center items-start border border-blue-200 m-3 text-blue-900 text-sm font-semibold'>
+                                <div className='bg-white w-fit rounded-lg p-5 justify-center items-start border border-blue-200 m-3 text-blue-900 text-sm font-semibold'>
 
                                     {
                                         groupedLines.map((line, index) => (
