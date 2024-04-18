@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import insights_icon from '../../assets/insights_icon.png'
 import { Accordion } from "flowbite-react";
+import axios from 'axios';
 
 
 const AnalyticsComponent = (props) => {
@@ -8,6 +9,55 @@ const AnalyticsComponent = (props) => {
     const [analyticsSelected, setAnalyticsSelected] = useState(true)
     const [questionListIndex, setQuestionListIndex] = useState(0)
     const minLength = Math.min(props.questionList.length, props.suggestionList.length);
+    const [transcript, setTranscript] = useState(localStorage.getItem('transcript'));
+
+    const [fillerWordsCount, setFillerWordsCount] = useState(0);
+    const [weakWordsCount, setWeakWordsCount] = useState(0);
+    const [sentenceStartersCount, setSentenceStartersCount] = useState(0);
+    const [negativeWordsCount, setNegativeWordsCount] = useState(0);
+
+    const [fillerWordsPercentage, setFillerWordsPercentage] = useState(0);
+    const [weakWordsPercentage, setWeakWordsPercentage] = useState(0);
+    const [sentenceStartersPercentage, setSentenceStartersPercentage] = useState(0);
+    const [negativeWordsPercentage, setNegativeWordsPercentage] = useState(0);
+
+
+
+    useEffect(() => {
+        fetchTranscriptDetails();
+    }, [])
+
+
+    const fetchTranscriptDetails = async () => {
+
+        const formData = new FormData();
+        formData.append('transcript', transcript);
+
+        try {
+            const response = await axios.post('http://127.0.0.1:8000/api/transcript/process_transcript/', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+
+            console.log(response.data);
+
+            setFillerWordsCount(response.data.filler_words);
+            setWeakWordsCount(response.data.weak_words);
+            setNegativeWordsCount(response.data.negative_words);
+
+            setFillerWordsPercentage(response.data.filler_words_percentage);
+            setWeakWordsPercentage(response.data.weak_words_percentage);
+            setSentenceStartersPercentage(response.data.sentence_starters_percentage);
+            setNegativeWordsPercentage(response.data.negative_words_percentage);
+
+
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
 
 
     return (
@@ -106,42 +156,84 @@ const AnalyticsComponent = (props) => {
                             ) : (
                                 <Accordion collapseAll>
                                     <Accordion.Panel style={{ marginTop: '20px' }}>
-                                        <Accordion.Title className='p-2 text-lg font-medium'>Non Inclusiveness</Accordion.Title>
-                                        <Accordion.Content className='m-5'>
-                                            <div className='flex justify-center items-center w-full h-16 bg-indigo-50 text-blue-900'>
-                                                Nice Job! We did not find any non inclusiveness in your speech.
-                                            </div>
-                                        </Accordion.Content>
+                                        <Accordion.Title className='p-2 text-lg font-medium'>{
+                                            `Filler Words (${fillerWordsCount} / ${fillerWordsPercentage}%)`
+                                        }</Accordion.Title>
+                                        <div className='m-4 '>
+                                            <Accordion.Content className='m-5 '>
+                                                <div className='flex justify-center items-center w-full h-16 bg-indigo-50 text-blue-900 p-11'>
+                                                    {/* Nice Job! We did not find any non inclusiveness in your speech. */}
+                                                    {
+                                                        fillerWordsCount > 0 ? (
+                                                            `You have used ${fillerWordsCount} filler words in your speech. You can improve by reducing the usage of filler words.`
+                                                        ) : 'Nice Job! We did not find any filler words in your speech.'
+                                                    }
+                                                </div>
+                                            </Accordion.Content>
+                                        </div>
+                                    </Accordion.Panel>
+
+
+
+                                    <Accordion.Panel style={{ marginTop: '20px' }}>
+                                        <Accordion.Title className='p-2 text-lg font-medium'>
+                                            {
+                                                `Weak Words (${weakWordsCount} / ${weakWordsPercentage}%)`
+                                            }
+
+                                        </Accordion.Title>
+                                        <div className='m-4'>
+                                            <Accordion.Content className='m-5'>
+                                                <div className='flex justify-center items-center w-full h-16 bg-indigo-50 text-blue-900 p-11'>
+                                                   {
+                                                        weakWordsCount > 0 ? (
+                                                            `You have used ${weakWordsCount} weak words in your speech. You can improve by using more strong words.`
+                                                        ) : 'Nice Job! We did not find any weak words in your speech.'
+                                                   }
+                                                </div>
+                                            </Accordion.Content>
+                                        </div>
                                     </Accordion.Panel>
 
 
                                     <Accordion.Panel style={{ marginTop: '20px' }}>
-                                        <Accordion.Title className='p-2 text-lg font-medium'>Non Inclusiveness</Accordion.Title>
-                                        <Accordion.Content className='m-5'>
-                                            <div className='flex justify-center items-center w-full h-16 bg-indigo-50 text-blue-900'>
-                                                Nice Job! We did not find any non inclusiveness in your speech.
-                                            </div>
-                                        </Accordion.Content>
+                                        <Accordion.Title className='p-2 text-lg font-medium'>
+                                            {
+                                                `Sentence Starters (${sentenceStartersPercentage}%)`
+                                            }
+                                        </Accordion.Title>
+                                        <div className='m-4'>
+                                            <Accordion.Content className='m-5'>
+                                                <div className='flex justify-center items-center w-full h-16 bg-indigo-50 text-blue-900 p-11'>
+                                                   {
+                                                        sentenceStartersCount > 0 ? (
+                                                            `You have repeated  sentence starters ${sentenceStartersCount} % times in your speech. You can improve by using more strong words.`
+                                                        ) : 'Nice Job! We did not find any repetition of sentence starters in your speech.'
+                                                   }
+                                                </div>
+                                            </Accordion.Content>
+                                        </div>
                                     </Accordion.Panel>
 
 
-                                    <Accordion.Panel className='mt-5'>
-                                        <Accordion.Title className='p-2 text-lg font-medium'>Non Inclusiveness</Accordion.Title>
-                                        <Accordion.Content className='m-5'>
-                                            <div className='flex justify-center items-center w-full h-16 bg-indigo-50 text-blue-900'>
-                                                Nice Job! We did not find any non inclusiveness in your speech.
-                                            </div>
-                                        </Accordion.Content>
-                                    </Accordion.Panel>
-
-
-                                    <Accordion.Panel className='mt-5'>
-                                        <Accordion.Title className='p-2 text-lg font-medium'>Non Inclusiveness</Accordion.Title>
-                                        <Accordion.Content className='m-5'>
-                                            <div className='flex justify-center items-center w-full h-16 bg-indigo-50 text-blue-900'>
-                                                Nice Job! We did not find any non inclusiveness in your speech.
-                                            </div>
-                                        </Accordion.Content>
+                                    <Accordion.Panel style={{ marginTop: '20px' }}>
+                                        <Accordion.Title className='p-2 text-lg font-medium'>
+                                            {
+                                                `Negative Words (${negativeWordsCount} / ${negativeWordsPercentage}%)`
+                                            }
+                                        </Accordion.Title>
+                                        <div className='m-4'>
+                                            <Accordion.Content className='m-5'>
+                                                <div className='flex justify-center items-center w-full h-16 bg-indigo-50 text-blue-900 p-11'>
+                                                    {
+                                                        negativeWordsCount > 0 ? (
+                                                            `You have used ${negativeWordsCount} negative words in your speech. Avoid using negative words in your interview.`
+                                                        ) : 'Nice Job! We did not find any negative words in your speech.'
+                                                    
+                                                    }
+                                                </div>
+                                            </Accordion.Content>
+                                        </div>
                                     </Accordion.Panel>
 
 

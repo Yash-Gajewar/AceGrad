@@ -21,6 +21,7 @@ import { useNavigate } from 'react-router-dom';
 
 var FinalQuestionList = [];
 var FinalSuggestionList = [];
+var prevQuestions = '';
 
 
 const NumberInput = React.forwardRef(function CustomNumberInput(props, ref) {
@@ -69,6 +70,7 @@ function Interview() {
     const [questionList, setQuestionList] = useState([
         'Tell me about yourself',
     ]);
+
     const [cameraOn, setCameraOn] = useState(false);
 
     const [recordingId, setRecordingId] = useState(null);
@@ -103,7 +105,14 @@ function Interview() {
         formData.append('company', company);
         formData.append('interviewer', interviewer);
         formData.append('numberOfQuestions', numberOfQuestions);
+         
+        questionList.map((question) => {
+            prevQuestions += question + '\n';
+        });
+        
+        formData.append('previous_questions', prevQuestions);
         formData.append('resume', selectedFile);
+
 
         try {
             const response = await axios.post('http://127.0.0.1:8000/api/generative_ai/get-questions-suggestions/', formData, {
@@ -117,9 +126,9 @@ function Interview() {
             // console.log(response.data["questions"]);
             // console.log(response.data["suggestions"]);
 
-            questionList.map((question) => {
-                FinalQuestionList.push(question);
-            });
+            // questionList.map((question) => {
+            //     FinalQuestionList.push(question);
+            // });
 
             for (var i = 0; i < response.data["questions"].length; i++) {
                 FinalQuestionList.push(response.data["questions"][i]);

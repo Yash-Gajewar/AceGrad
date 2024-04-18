@@ -3,6 +3,7 @@ import SidebarComponent from '../../components/SidebarComponent/SidebarComponent
 import AnalyticsComponent from '../../components/AnalyticsComponent/AnalyticsComponent';
 import insights_icon from '../../assets/insights_icon.png';
 import { store } from '../../app/store';
+import axios from 'axios';
 
 
 function Analytics() {
@@ -18,7 +19,7 @@ function Analytics() {
     const groupedLines = [];
 
     for (let i = 0; i < lines.length; i += 2) {
-        const line = lines[i]  + lines[i + 1] ;
+        const line = lines[i] + lines[i + 1];
 
         // Create a div element with two lines of text if available
         groupedLines.push(
@@ -26,7 +27,7 @@ function Analytics() {
                 {line}
             </div>
         );
-        
+
     }
 
 
@@ -48,11 +49,9 @@ function Analytics() {
             setSuggestionList(parsedFinalSuggestionList);
         }
 
-        console.log('Question List:', questionList);
-        console.log('Suggestion List:', suggestionList);
+        // fetchTranscriptDetails();
 
     }, []);
-
 
 
     return (
