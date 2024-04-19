@@ -26,7 +26,7 @@ function Analytics() {
                     <div>
 
                         <div className='flex justify-center items-center mt-5'>
-                            <video src={require('C:/Users/yash/Downloads/1712429767388.webm')} width="375" height="300" autoPlay loop controls>
+                            <video src={require("C:/Users/anilt/Downloads/OK.webm")} width="375" height="300" autoPlay loop controls>
                             </video>
                         </div>
 

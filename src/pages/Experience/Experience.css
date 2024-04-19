@@ -1,0 +1,17 @@
+.ExperienceContainer {
+    display: grid;
+    grid-template-columns: 3fr 1fr; /* ExperienceListView takes 2/3 and ExperienceRightBar takes 1/3 */
+    gap: 10px; /* Adjust the gap between the columns as needed */
+    grid-template-areas: 
+    "ExperienceListView"
+    "Rightbar"
+  }
+
+
+  .ExperienceListView{
+    grid-area: ExperienceListView;
+  }
+
+  .Rightbar{
+    grid-area: Rightbar;
+  }

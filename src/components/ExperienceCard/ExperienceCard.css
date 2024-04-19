@@ -1,0 +1,20 @@
+.ExperienceCardBody {
+  border-radius: 17px;
+  background-color: #EEEFFE;
+  padding: 20px;
+  width: 90%;
+  margin-left: 45px;
+  margin-bottom: 20px;
+}
+
+.ExperienceCardTag {
+  display: inline-block;
+  align-items: center;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 15px;
+  background-color: #AAAAFF;
+  color: #FFFFFF;
+}
