@@ -1,46 +1,25 @@
-# Getting Started with Create React App and Redux
+# AceGrad
+AceGrad is an AI-powered platform that enhances interview preparation by generating tailored questions and providing personalized suggestions by utilizing RAG Model based on resume. It also provides Performance Analytics Dashboard, along with Interview Experiences of candidates to help users improve their interview skills.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+The frontend of the website is developed using Next.js, backend using FastAPI, and Firebase for storing resources.
 
-## Available Scripts
+<!-- First Row -->
+| Login Screen | Register Page |
+|---|---|
+| ![Login Screen](https://github.com/Yash-Gajewar/AceGrad/assets/65448232/55a4d17c-5bf1-4a53-bc8c-2bfb979d1b1c) | ![Register Page](https://github.com/Yash-Gajewar/AceGrad/assets/65448232/0b05cce0-6f49-4d79-9993-3dedb181ecc1) |
 
-In the project directory, you can run:
+<!-- Add some vertical spacing -->
+<br/>
 
-### `npm start`
+<!-- Second Row -->
+| Interview | Session |
+|---|---|
+| ![Interview](https://github.com/Yash-Gajewar/AceGrad/assets/65448232/a0698e3c-4012-4760-93b4-10e0577669e8) | ![Session](https://github.com/Yash-Gajewar/AceGrad/assets/65448232/66ae7112-3d8d-440a-9718-31f38d46db3d) |
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<!-- Add some vertical spacing -->
+<br/>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+<!-- Third Row -->
+| Analytics | Paused Session |
+|---|---|
+| ![Analytics](https://github.com/Yash-Gajewar/AceGrad/assets/65448232/4c5bd49f-e4ea-45d8-9fda-b5f6baf7fa0f) | ![Paused Session](https://github.com/Yash-Gajewar/AceGrad/assets/65448232/a3000bdb-4d99-461b-9335-fa7afe9e5c30) |
