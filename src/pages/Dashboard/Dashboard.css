@@ -1,0 +1,45 @@
+.dashboardContainer{
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 0.3fr 1fr 1fr;
+
+    grid-template-areas: 
+        "heading heading heading heading"
+        "lineChart lineChart barChart barChart"
+        "doughnutChart1 doughnutChart2 doughnutChart3 doughnutChart4";
+}
+
+
+.dashboardHeading{
+    grid-area: heading;
+}
+
+.dashboardLineChart{
+    grid-area: lineChart;
+}
+
+.dashboardBarChart{
+    grid-area: barChart;
+   
+}
+
+.dashboardDoughnutChart1{
+    grid-area: doughnutChart1;    
+}
+
+.dashboardDoughnutChart2{
+    grid-area: doughnutChart2;    
+}
+
+.dashboardDoughnutChart3{
+    grid-area: doughnutChart3;    
+}
+
+.dashboardDoughnutChart4{
+    grid-area: doughnutChart4;    
+}
+
+
+
+

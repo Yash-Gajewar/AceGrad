@@ -15,7 +15,13 @@ const ExperienceListView = () => {
                     <Badge className='TagBadge mr-2' style={{ borderColor: "#AAAAFF", borderWidth: '2px', color: "#AAAAFF" }}>Recent Articles</Badge>
                 </div>
 
-                    <Badge className='create-btn'> <i class="fa-solid fa-pen-to-square pr-3"></i> Create</Badge>
+                <Badge className='create-btn'> <i class="fa-solid fa-pen-to-square pr-3"></i>
+
+                    <Link to='/create-experience'>
+                        Create
+                    </Link>
+
+                </Badge>
             </div>
             <ExperienceCard />
             <ExperienceCard />
