@@ -66,7 +66,7 @@ const AnalyticsComponent = (props) => {
         props.collapsed ? <></> : (
 
             // parent div
-            <div className='flex flex-col items-center max-w-full h-full bg-white'>
+            <div className='flex flex-col items-center max-w-full bg-white h-[650px]'>
 
                 {/* heading div */}
 
@@ -114,11 +114,11 @@ const AnalyticsComponent = (props) => {
 
                 {/* div containing insights and suggestions */}
 
-                <div className='flex flex-col max-w-96 justify-center items-center' >
+                <div className='flex flex-col max-w-full justify-center items-center ' >
 
                     {/* div to make scrollable suggestions and insights */}
 
-                    <div className='block mt-5 max-w-96 max-h-96 overflow-y-auto'>
+                    <div className='block mt-5 max-w-full max-h-96 overflow-y-auto '>
 
                         {
                             !analyticsSelected ? (
@@ -157,13 +157,13 @@ const AnalyticsComponent = (props) => {
 
 
 
-                                <Accordion collapseAll className='w-full'>
+                                <Accordion className='w-[470px] h-full p-4'>
                                     <Accordion.Panel style={{ marginTop: '20px' }}>
                                         <Accordion.Title className='p-2 text-lg font-medium'>{
                                             `Filler Words (${fillerWordsCount} / ${fillerWordsPercentage}%)`
                                         }</Accordion.Title>
                                         <div className='m-4 '>
-                                            <Accordion.Content className='m-5 '>
+                                            <Accordion.Content className='m-5 p-2'>
                                                 <div className='flex justify-center items-center w-full h-16 bg-indigo-50 text-blue-900 p-11'>
                                                     {/* Nice Job! We did not find any non inclusiveness in your speech. */}
                                                     {

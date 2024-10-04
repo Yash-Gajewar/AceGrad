@@ -1,4 +1,4 @@
-.AnalyticsContainer {
+/* .AnalyticsContainer {
     display: grid;
     height: 100vh;
     grid-template-columns: 1fr 1fr;
@@ -22,4 +22,29 @@
     grid-area: video;
     margin: 1.5rem;
     padding: 1rem;
+} */
+
+/* 
+.AnalyticsContainer{
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+        "heading heading"
+        "video insights";
 }
+
+.AnalyticsHeading{
+    grid-area: heading;
+}
+
+.AnalyticsVideoTranscriptContainer{
+    grid-area: video;   
+}
+
+.AnalyticsComponentContainer{
+    grid-area: insights;
+} */
+
+

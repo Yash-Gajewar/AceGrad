@@ -49,7 +49,7 @@ const SidebarComponent = () => {
                                     )
                             }
                         </MenuItem >
-                        <MenuItem className='mt-4'>
+                        <MenuItem component={<Link to="/dashboard" />} className='mt-4'>
                             {
                                 collapsed ? <img src={dashboard} alt="interview" height={imageHeight} width={imageWidth} />
                                     : (

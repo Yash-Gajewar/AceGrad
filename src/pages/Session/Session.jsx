@@ -22,31 +22,32 @@ import { useCheetah } from "@picovoice/cheetah-react";
 import { useNavigate } from 'react-router-dom';
 
 
+var finaltranscript = "";
+
 function Session() {
 
     const navigate = useNavigate();
 
 
     const [questionList, setQuestionList] = useState([]);
-    const [transcript, setTranscript] = useState("");
 
-    const {
-        result,
-        isLoaded,
-        isListening,
-        error,
-        init,
-        start,
-        stop,
-    } = useCheetah();
+    // const {
+    //     result,
+    //     isLoaded,
+    //     isListening,
+    //     error,
+    //     init,
+    //     start,
+    //     stop,
+    // } = useCheetah();
 
-    const initEngine = async () => {
-        await init(
-            "3TGsoy0Aky13aXHhvEld4GSQNGhHiqirFH6HbpOT4tPMwOtIqA8ZCA==",
-            { publicPath: "https://yash-gajewar.github.io/Speech_To_Text/filler_words_model.pv" },
-            { enableAutomaticPunctuation: true }
-        );
-    };
+    // const initEngine = async () => {
+    //     await init(
+    //         "3TGsoy0Aky13aXHhvEld4GSQNGhHiqirFH6HbpOT4tPMwOtIqA8ZCA==",
+    //         { publicPath: "https://yash-gajewar.github.io/Speech_To_Text/filler_words_model.pv" },
+    //         { enableAutomaticPunctuation: true }
+    //     );
+    // };
 
 
     const [cameraOn, setCameraOn] = useState(false);
@@ -70,26 +71,58 @@ function Session() {
             setQuestionList(parsedFinalQuestionList);
         }
 
+        // pico voice initialization
+        // initEngine();
 
-        initEngine();
+        // Initialize mediaRecorder after accessing the media stream
+        
+        navigator.mediaDevices.getUserMedia({audio: true }).then((stream) => {
+            // console.log(stream)
+
+            const mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
+
+            const socket = new WebSocket('https://api.deepgram.com/v1/listen?model=nova-2-meeting&dictation=true&punctuate=true&filler_words=true&smart_format=true',['token','ce6df275da0473562a0fd0d95eef0d78fcbb8fda'])
+
+            socket.onopen = () =>{
+                mediaRecorder.addEventListener('dataavailable', (event) => {
+                    socket.send(event.data);
+                })
+
+                mediaRecorder.start(300);
+            }
+
+            socket.onmessage = (event) => {
+                // console.log(event.data);
+
+                const received = JSON.parse(event.data);
+                const transcript = received.channel.alternatives[0].transcript;
+
+                finaltranscript += transcript;
+
+                console.log(finaltranscript);
+
+                // console.log(transcript);
+
+            }
+        })
 
     }, []);
 
 
 
-    useEffect(() => {
-        if (result !== null) {
-            setTranscript(prev => {
-                let newTranscript = prev + result.transcript
-                if (result.isComplete) {
-                    newTranscript += " "
-                }
-                return newTranscript
-            })
+    // useEffect(() => {
+    //     if (result !== null) {
+    //         setTranscript(prev => {
+    //             let newTranscript = prev + result.transcript
+    //             if (result.isComplete) {
+    //                 newTranscript += " "
+    //             }
+    //             return newTranscript
+    //         })
 
-            localStorage.setItem('transcript', transcript);
-        }
-    }, [result])
+    //         localStorage.setItem('transcript', transcript);
+    //     }
+    // }, [result])
 
 
     const recordVideo = async () => {
@@ -111,14 +144,16 @@ function Session() {
 
         const video = await stopRecording(recordingId);
         await download(recordingId);
-        await stop();
-    
-        
-        localStorage.setItem('videoFileName', video.fileName);    
+        // await stop();
+
+
+        localStorage.setItem('videoFileName', video.fileName);
+
+        localStorage.setItem('transcript', finaltranscript);
 
         navigate('/analytics');
-            
-        
+
+
 
         // stopRecording(recordingId).then((video) => {
         //     const videoRef = ref(storage, `${recordingId + v4()}.webm`);
@@ -149,20 +184,20 @@ function Session() {
         if (recordingStarted) {
             await pauseRecording(recordingId);
             setRecordingStarted(false);
-            await stop();
+            // await stop();
         }
 
         else {
             await resumeRecording(recordingId);
             setRecordingStarted(true);
-            await start();
+            // await start();
         }
 
     }
 
     const startInterviewPressed = async () => {
         await startRecording(recordingId);
-        await start();
+        // await start();
         setRecordingStarted(true);
         setStartInterviewDisabled(true);
     }
@@ -207,7 +242,7 @@ function Session() {
 
                     <div className='flex justify-center items-center cursor-default'>
                         <button
-                            disabled={startInterviewDisabled && isLoaded}
+                            disabled={startInterviewDisabled } //&& isLoaded}
                             onClick={() => startInterviewPressed()}
                             className={`text-white ${startInterviewDisabled ? 'cursor-not-allowed bg-gradient-to-br from-gray-400 via-gray-500 to-gray-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800' : 'bg-gradient-to-br from-purple-400 via-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800'} font-medium rounded-lg text-l px-5 py-2.5 text-center me-2 mt-5 mr-5`}
                         >
@@ -287,11 +322,6 @@ function Session() {
 
                         </div>
                     </div>
-
-
-
-
-
 
 
                 </div>
