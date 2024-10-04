@@ -6,9 +6,9 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 import SidebarComponent from '../../components/SidebarComponent/SidebarComponent';
+import './CreatePost.css'; // Import CSS file for styles
 
 const CreatePost = () => {
-
     const [title, setTitle] = useState('');
     const [experience, setExperience] = useState('');
     const [tags, setTags] = useState([]);
@@ -36,35 +36,57 @@ const CreatePost = () => {
         setTags(tags.filter(tag => tag !== tagToRemove));
     };
 
+    const handleAddPost = () => {
+        // Logic to handle post submission goes here
+        console.log('Post Added:', { title, experience, tags });
+        // Clear the fields after submission
+        setTitle('');
+        setExperience('');
+        setTags([]);
+        setPreview('');
+    };
 
     return (
         <div className='flex'>
-
-
-            {/* side bar div */}
             <SidebarComponent />
-            {/* main content div */}
-
-
             <div className="container mt-4">
-                <Row>
-                    <Col md={8}>
-                        <h1>Create Interview Experience</h1>
+            <h1 className="mt-2 mb-6 text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">
+    Post Interview Experience
+</h1>
+                <Row className="content-row">
+                    <Col md={6} className="form-section">
+                        <h2>Create Post</h2>
                         <Form>
                             <Form.Group controlId="title">
                                 <Form.Label>Title</Form.Label>
-                                <Form.Control type="text" placeholder="Enter title" value={title} onChange={handleTitleChange} />
+                                <Form.Control 
+                                    type="text" 
+                                    placeholder="Enter title" 
+                                    value={title} 
+                                    onChange={handleTitleChange}
+                                    style={{ marginTop: '0.5rem' }} 
+                                />
                             </Form.Group>
                             <br />
                             <Form.Group controlId="experience">
                                 <Form.Label>Experience</Form.Label>
-                                <Form.Control as="textarea" rows={5} placeholder="Enter experience" value={experience} onChange={handleExperienceChange} />
+                                <Form.Control 
+                                    as="textarea" 
+                                    rows={5} 
+                                    placeholder="Enter experience" 
+                                    value={experience} 
+                                    onChange={handleExperienceChange} 
+                                />
                             </Form.Group>
                             <br />
                             <Form.Group controlId="tags">
                                 <Form.Label>Tags</Form.Label>
                                 <InputGroup>
-                                    <Form.Control type="text" placeholder="Enter tags" onKeyUp={handleTagsChange} />
+                                    <Form.Control 
+                                        type="text" 
+                                        placeholder="Enter tags" 
+                                        onKeyUp={handleTagsChange} 
+                                    />
                                     <InputGroup.Text>Press Enter to add</InputGroup.Text>
                                 </InputGroup>
                                 <div>
@@ -74,14 +96,17 @@ const CreatePost = () => {
                                 </div>
                             </Form.Group>
                             <br />
+                            <Button variant="primary" onClick={handleAddPost}>
+                                Add Post
+                            </Button>
                         </Form>
                     </Col>
-                    <Col md={4}>
-                        <h3>Preview</h3>
+                    {/* <Col md={6} className="preview-section">
+                        <h2>Preview</h2>
                         <Card>
                             <Card.Body dangerouslySetInnerHTML={{ __html: preview }} />
                         </Card>
-                    </Col>
+                    </Col> */}
                 </Row>
             </div>
         </div>
