@@ -21,10 +21,10 @@ const Dashboard = () => {
 
   // Data for the Line Chart
   const lineChartData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: ['1', '2', '3', '4', '5', '6', '7'],
     datasets: [
       {
-        label: 'Sales',
+        label: 'Score',
         data: [65, 59, 80, 81, 56, 55, 40],
         borderColor: 'rgba(75, 192, 192, 1)',
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
@@ -41,7 +41,7 @@ const Dashboard = () => {
       },
       title: {
         display: true,
-        text: 'Sales Over Time',
+        text: 'Score Over Number of Interviews Given',
       },
     },
   };
@@ -80,54 +80,54 @@ const Dashboard = () => {
 
   // Data for the Doughnut Charts
   const doughnutChartData1 = {
-    labels: ['Red', 'Blue', 'Yellow'],
+    labels: ['Filler Words', 'Total Words'],
     datasets: [
       {
         label: 'Dataset 1',
-        data: [300, 50, 100],
-        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-        hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+        data: [50, 300],
+        backgroundColor: ['#FF0000', '#36A2EB'],
+        hoverBackgroundColor: ['#FF0000', '#36A2EB']
       },
     ],
   };
 
   const doughnutChartData2 = {
-    labels: ['Green', 'Purple', 'Orange'],
+    labels: ['Weak Words', 'Total Words'],
     datasets: [
       {
-        label: 'Dataset 2',
-        data: [200, 150, 90],
-        backgroundColor: ['#4BC0C0', '#9966FF', '#FF9F40'],
-        hoverBackgroundColor: ['#4BC0C0', '#9966FF', '#FF9F40'],
+        label: 'Dataset 1',
+        data: [50, 300],
+        backgroundColor: ['#FF0000', '#36A2EB'],
+        hoverBackgroundColor: ['#FF0000', '#36A2EB']
       },
     ],
   };
 
   const doughnutChartData3 = {
-    labels: ['Red', 'Yellow', 'Blue'],
+    labels: ['Negative Words', 'Total Words'],
     datasets: [
       {
-        label: 'Dataset 3',
-        data: [120, 140, 110],
-        backgroundColor: ['#FF6384', '#FFCE56', '#36A2EB'],
-        hoverBackgroundColor: ['#FF6384', '#FFCE56', '#36A2EB'],
+        label: 'Dataset 1',
+        data: [50, 300],
+        backgroundColor: ['#FF0000', '#36A2EB'],
+        hoverBackgroundColor: ['#FF0000', '#36A2EB']
       },
     ],
   };
 
   const doughnutChartData4 = {
-    labels: ['Pink', 'Cyan', 'Gray'],
+    labels: ['Sentence Starter Repeaters', 'Total Words'],
     datasets: [
       {
-        label: 'Dataset 4',
-        data: [180, 90, 130],
-        backgroundColor: ['#F67280', '#00CED1', '#B0BEC5'],
-        hoverBackgroundColor: ['#F67280', '#00CED1', '#B0BEC5'],
+        label: 'Dataset 1',
+        data: [50, 300],
+        backgroundColor: ['#FF0000', '#36A2EB'],
+        hoverBackgroundColor: ['#FF0000', '#36A2EB']
       },
     ],
   };
 
-  const doughnutChartOptions = {
+  const doughnutChartOptions1 = {
     responsive: true,
     plugins: {
       legend: {
@@ -135,7 +135,55 @@ const Dashboard = () => {
       },
       title: {
         display: true,
-        text: 'Doughnut Chart',
+        text: 'Filler Words',
+      },
+
+    },
+    
+  };
+
+
+  const doughnutChartOptions2 = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Weak Words',
+      },
+
+    },
+    
+  };
+
+
+  const doughnutChartOptions3 = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Negative Words',
+      },
+
+    },
+    
+  };
+
+
+  const doughnutChartOptions4 = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Sentence Starter Repeaters',
       },
 
     },
@@ -163,22 +211,22 @@ const Dashboard = () => {
 
             <div className='p-4 dashboardDoughnutChart1 w-80 h-80 flex justify-center items-center'>
                 {/* Insert Doughnut Chart 1 */}
-                <Doughnut data={doughnutChartData1} options={doughnutChartOptions} />
+                <Doughnut data={doughnutChartData1} options={doughnutChartOptions1} />
             </div>
 
             <div className='p-4 dashboardDoughnutChart2 w-80 h-80 flex justify-center items-center'>
                 {/* Insert Doughnut Chart 2 */}
-                <Doughnut data={doughnutChartData2} options={doughnutChartOptions} />
+                <Doughnut data={doughnutChartData2} options={doughnutChartOptions2} />
             </div>
 
             <div className='p-4 dashboardDoughnutChart3 w-80 h-80 flex justify-center items-center'>
                 {/* Insert Doughnut Chart 3 */}
-                <Doughnut data={doughnutChartData3} options={doughnutChartOptions} />
+                <Doughnut data={doughnutChartData3} options={doughnutChartOptions3} />
             </div>
 
             <div className='p-4 dashboardDoughnutChart4 w-80 h-80 flex justify-center items-center'>
                 {/* Insert Doughnut Chart 4 */}
-                <Doughnut data={doughnutChartData4} options={doughnutChartOptions} />
+                <Doughnut data={doughnutChartData4} options={doughnutChartOptions4} />
             </div>
 
         </div>
