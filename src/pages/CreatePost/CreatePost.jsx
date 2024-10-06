@@ -1,10 +1,4 @@
-import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
-import Row from 'react-bootstrap/Row';
+import { useState } from 'react';
 import SidebarComponent from '../../components/SidebarComponent/SidebarComponent';
 import './CreatePost.css'; // Import CSS file for styles
 
