@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import SidebarComponent from '../../components/SidebarComponent/SidebarComponent';
 import AnalyticsComponent from '../../components/AnalyticsComponent/AnalyticsComponent';
 import insights_icon from '../../assets/insights_icon.png';
-import { store } from '../../app/store';
 import axios from 'axios';
+
 
 
 function Analytics() {
@@ -11,6 +11,7 @@ function Analytics() {
 
     const [collapsed, setCollapsed] = useState(true);
     const [transcript, setTranscript] = useState(localStorage.getItem('transcript'));
+    // const [transcript, setTranscript] = useState('');
     const [suggestionList, setSuggestionList] = useState([]);
     const [questionList, setQuestionList] = useState([]);
     const [videoFileName, setVideoFileName] = useState(localStorage.getItem('videoFileName'));
@@ -65,6 +66,21 @@ function Analytics() {
         // fetchTranscriptDetails();
 
 
+        // if (videoFileName) {
+        //     const videoFilePath = `C:/Users/yash/Downloads/${videoFileName}.webm`;
+
+        //     if (videoFilePath) {
+        //         // Make API call to backend to get transcript
+        //         const response = axios.get('http://localhost:8000/get_transcript/', {
+        //             params: { url: videoFilePath },
+        //         });
+
+        //         // Set the response (transcript) from the backend
+        //         setTranscript(response.data);
+        //     }
+        // }
+
+
     }, []);
 
 
@@ -96,7 +112,7 @@ function Analytics() {
 
 
                         <div className='flex justify-center items-center mt-5'>
-                            {/* <video src={require(`C:/Users/yash/Downloads/${videoFileName}.webm`)} width="375" height="300" autoPlay loop controls /> */}
+                            <video src={require(`C:/Users/yash/Downloads/${videoFileName}.webm`)} width="375" height="300" autoPlay loop controls />
                         </div>
 
 
@@ -142,9 +158,6 @@ function Analytics() {
 
 
 
-
-
-
                         <img src={insights_icon} alt='insights_icon' className='w-5 h-5 ml-2 mr-2 cursor-pointer' />
                         <p className='text-sm font-normal cursor-pointer'>INSIGHTS</p>
 
@@ -156,6 +169,7 @@ function Analytics() {
 
 
                         <AnalyticsComponent
+                            transcript = {transcript}
                             collapsed={collapsed}
                             setCollapsed={setCollapsed}
                             suggestionList={suggestionList}

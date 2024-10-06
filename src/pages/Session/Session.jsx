@@ -13,16 +13,18 @@ import play from '../../assets/play.png';
 import pause from '../../assets/pause.png';
 import stop_icon from '../../assets/stop_icon.png';
 
-import { storage } from '../../firebase';
-import { ref, uploadBytes } from "firebase/storage";
-import { v4 } from 'uuid';
-
-import { useCheetah } from "@picovoice/cheetah-react";
-
 import { useNavigate } from 'react-router-dom';
 
 
-var finaltranscript = "";
+// import { storage } from '../../firebase';
+// import { ref, uploadBytes } from "firebase/storage";
+// import { v4 } from 'uuid';
+// import { getDownloadURL } from 'firebase/storage';
+
+
+// import { useCheetah } from "@picovoice/cheetah-react";
+
+let finalTranscript = '';
 
 function Session() {
 
@@ -61,6 +63,13 @@ function Session() {
     const [recordingStarted, setRecordingStarted] = useState(false);
     const [startInterviewDisabled, setStartInterviewDisabled] = useState(false);
 
+    const [transcriptSet, setTranscriptSet] = useState(new Set());
+
+    const[currentQuestion, setCurrentQuestion] = useState(1);
+
+    // var responses = [];
+
+
     useEffect(() => {
         // Retrieve FinalQuestionList from local storage
         const storedFinalQuestionList = localStorage.getItem('FinalQuestionList');
@@ -74,21 +83,22 @@ function Session() {
         // pico voice initialization
         // initEngine();
 
+
         // Initialize mediaRecorder after accessing the media stream
-        
-        navigator.mediaDevices.getUserMedia({audio: true }).then((stream) => {
+
+        navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
             // console.log(stream)
 
             const mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
 
-            const socket = new WebSocket('https://api.deepgram.com/v1/listen?model=nova-2-meeting&dictation=true&punctuate=true&filler_words=true&smart_format=true',['token','ce6df275da0473562a0fd0d95eef0d78fcbb8fda'])
+            const socket = new WebSocket('https://api.deepgram.com/v1/listen?model=nova-2-meeting&dictation=true&punctuate=true&filler_words=true&smart_format=true&endpointing=100', ['token', 'ce6df275da0473562a0fd0d95eef0d78fcbb8fda']);
 
-            socket.onopen = () =>{
+            socket.onopen = () => {
                 mediaRecorder.addEventListener('dataavailable', (event) => {
                     socket.send(event.data);
                 })
 
-                mediaRecorder.start(300);
+                mediaRecorder.start(250);
             }
 
             socket.onmessage = (event) => {
@@ -97,14 +107,17 @@ function Session() {
                 const received = JSON.parse(event.data);
                 const transcript = received.channel.alternatives[0].transcript;
 
-                finaltranscript += transcript;
+                // console.log(received);
 
-                console.log(finaltranscript);
+                if (!transcriptSet.has(transcript)) {
+                    setTranscriptSet(prevSet => new Set(prevSet).add(transcript));
+                }
 
-                // console.log(transcript);
+                
 
             }
         })
+
 
     }, []);
 
@@ -149,13 +162,21 @@ function Session() {
 
         localStorage.setItem('videoFileName', video.fileName);
 
-        localStorage.setItem('transcript', finaltranscript);
+        finalTranscript = [...transcriptSet].join(' ');
 
-        navigate('/analytics');
+        // setFinalTranscript([...transcriptSet].join(' '));
+
+        localStorage.setItem('transcript', finalTranscript);
+
+        // navigate('/analytics');
 
 
 
         // stopRecording(recordingId).then((video) => {
+
+
+        //     setTimeout(() => {}, 5000);
+
         //     const videoRef = ref(storage, `${recordingId + v4()}.webm`);
 
         //     uploadBytes(videoRef, video).then((snapshot) => {
@@ -163,6 +184,14 @@ function Session() {
 
         //     }
         //     );
+
+        //     // get the firebase url
+
+        //     const url = getDownloadURL(videoRef);
+
+        //     console.log(url);
+
+
         // });
 
         // const video = await stopRecording(recordingId);
@@ -175,6 +204,8 @@ function Session() {
         //     alert("Video uploaded successfully");
         // }
         // );
+
+
     }
 
 
@@ -201,6 +232,23 @@ function Session() {
         setRecordingStarted(true);
         setStartInterviewDisabled(true);
     }
+
+
+
+    // const nextButtonPressed = async () => {
+    //     index == questionList.length - 1 ? setIndex(index) : setIndex(index + 1);
+    //     setCurrentQuestion(currentQuestion + 1);
+    //     responses.push(finalTranscript);
+    //     finalTranscript = '';
+
+    // }
+
+    // const previousButtonPressed = async () => {
+    //     index == 0 ? setIndex(0) : setIndex(index - 1)
+    //     setCurrentQuestion(currentQuestion - 1);
+    //     responses[currentQuestion - 1] = finalTranscript;
+    //     finalTranscript = '';
+    // }
 
 
 
@@ -242,7 +290,7 @@ function Session() {
 
                     <div className='flex justify-center items-center cursor-default'>
                         <button
-                            disabled={startInterviewDisabled } //&& isLoaded}
+                            disabled={startInterviewDisabled} //&& isLoaded}
                             onClick={() => startInterviewPressed()}
                             className={`text-white ${startInterviewDisabled ? 'cursor-not-allowed bg-gradient-to-br from-gray-400 via-gray-500 to-gray-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800' : 'bg-gradient-to-br from-purple-400 via-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800'} font-medium rounded-lg text-l px-5 py-2.5 text-center me-2 mt-5 mr-5`}
                         >

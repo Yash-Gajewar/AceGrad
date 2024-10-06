@@ -9,7 +9,7 @@ const AnalyticsComponent = (props) => {
     const [analyticsSelected, setAnalyticsSelected] = useState(true)
     const [questionListIndex, setQuestionListIndex] = useState(0)
     const minLength = Math.min(props.questionList.length, props.suggestionList.length);
-    const [transcript, setTranscript] = useState(localStorage.getItem('transcript'));
+    // const [transcript, setTranscript] = useState(localStorage.getItem('transcript'));
 
     const [fillerWordsCount, setFillerWordsCount] = useState(0);
     const [weakWordsCount, setWeakWordsCount] = useState(0);
@@ -31,7 +31,7 @@ const AnalyticsComponent = (props) => {
     const fetchTranscriptDetails = async () => {
 
         const formData = new FormData();
-        formData.append('transcript', transcript);
+        formData.append('transcript', props.transcript);
 
         try {
             const response = await axios.post('http://127.0.0.1:8000/api/transcript/process_transcript/', formData, {
@@ -66,7 +66,7 @@ const AnalyticsComponent = (props) => {
         props.collapsed ? <></> : (
 
             // parent div
-            <div className='flex flex-col items-center max-w-full bg-white h-[650px]'>
+            <div className='flex flex-col items-center max-w-[600px] bg-white h-[650px]'>
 
                 {/* heading div */}
 

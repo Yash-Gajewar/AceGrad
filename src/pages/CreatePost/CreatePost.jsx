@@ -49,65 +49,107 @@ const CreatePost = () => {
     return (
         <div className='flex'>
             <SidebarComponent />
-            <div className="container mt-4">
-            <h1 className="mt-2 mb-6 text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">
-    Post Interview Experience
-</h1>
-                <Row className="content-row">
-                    <Col md={6} className="form-section">
-                        <h2>Create Post</h2>
-                        <Form>
-                            <Form.Group controlId="title">
-                                <Form.Label>Title</Form.Label>
-                                <Form.Control 
-                                    type="text" 
-                                    placeholder="Enter title" 
-                                    value={title} 
-                                    onChange={handleTitleChange}
-                                    style={{ marginTop: '0.5rem' }} 
-                                />
-                            </Form.Group>
-                            <br />
-                            <Form.Group controlId="experience">
-                                <Form.Label>Experience</Form.Label>
-                                <Form.Control 
-                                    as="textarea" 
-                                    rows={5} 
-                                    placeholder="Enter experience" 
-                                    value={experience} 
-                                    onChange={handleExperienceChange} 
-                                />
-                            </Form.Group>
-                            <br />
-                            <Form.Group controlId="tags">
-                                <Form.Label>Tags</Form.Label>
-                                <InputGroup>
-                                    <Form.Control 
-                                        type="text" 
-                                        placeholder="Enter tags" 
-                                        onKeyUp={handleTagsChange} 
-                                    />
-                                    <InputGroup.Text>Press Enter to add</InputGroup.Text>
-                                </InputGroup>
-                                <div>
-                                    {tags.map((tag, index) => (
-                                        <span key={index} className="badge bg-secondary me-1">{tag} <span onClick={() => removeTag(tag)}>x</span></span>
-                                    ))}
-                                </div>
-                            </Form.Group>
-                            <br />
-                            <Button variant="primary" onClick={handleAddPost}>
-                                Add Post
-                            </Button>
-                        </Form>
-                    </Col>
-                    {/* <Col md={6} className="preview-section">
-                        <h2>Preview</h2>
-                        <Card>
-                            <Card.Body dangerouslySetInnerHTML={{ __html: preview }} />
-                        </Card>
-                    </Col> */}
-                </Row>
+            <div className="container mt-4 ">
+                <h1 className="p-4 mb-4 text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">
+                    Post Interview Experience
+                </h1>
+
+                <div className='PostContainer flex w-full bg-gradient-to-r'>
+
+                    <div className='flex w-full justify-around items-start'>
+                        <div className='flex companyTitle p-3 justify-center items-center'>
+                            <p className='text-xl p-2 font-medium'>Company Name</p>
+                            <input type='text' className='p-2 rounded-md w-56 h-9' />
+                        </div>
+
+                        <div className='flex companyTitle p-3 justify-center items-center'>
+                            <p className='text-xl p-2 font-medium'>Company Name</p>
+                            <input type='text' className='p-2 rounded-md w-56 h-9' />
+                        </div>
+
+                        <div className='flex companyTitle p-3 justify-center items-center'>
+                            <p className='text-xl p-2 font-medium'>Company Name</p>
+                            <input type='text' className='p-2 rounded-md w-56 h-9' />
+                        </div>
+                    </div>
+
+                </div>
+
+                <div className='flex w-full justify-between items-start mt-4 p-3'>
+
+                    <div className='flex description p-3 justify-between items-center'>
+
+                        <p className='text-xl p-3 font-medium'>Describe Your Interview</p>
+
+                        <textarea className='p-3 rounded-md w-96 h-32' />
+
+                    </div>
+
+                    <div className='flex flex-col p-3'>
+
+                        <div className='flex companyTitle p-3 justify-between items-center'>
+                            <p className='text-xl p-2 font-medium'>Interview Difficulty</p>
+                            {/* dropdown menu with Difficulty levels */}
+                            <select className='p-2 rounded-md w-56 h-9'>
+                                <option value='' disabled selected>Select your option</option>
+                                <option value='Very Easy'>Very Easy</option>
+                                <option value='Easy'>Easy</option>
+                                <option value='Average'>Average</option>
+                                <option value='Difficult'>Difficult</option>
+                                <option value='Very Difficult'>Very Difficult</option>
+                            </select>
+                        </div>
+
+                        <div className='flex companyTitle p-3 justify-between items-center'>
+                            <p className='text-xl p-2 font-medium'>Did you get an offer?</p>
+                            {/* dropdown menu with Yes or No */}
+                            <select className='p-2 rounded-md w-56 h-9'>
+                                <option value='' disabled selected>Select your option</option>
+                                <option value='No'>No</option>
+                                <option value='Yes, but I declined'>Yes, but I declined</option>
+                                <option value='Yes, and I accepted'>Yes, and I accepted</option>
+                            </select>
+                        </div>
+
+
+                        <div className='flex companyTitle p-3 justify-between items-center'>
+                            <p className='text-xl p-2 font-medium'>How did you get the interview</p>
+                            {/* dropdown menu with Yes or No */}
+                            <select className='p-2 rounded-md w-56 h-9'>
+                                <option value='' disabled selected>Select your option</option>
+                                <option value='Applied Online'>Applied Online</option>
+                                <option value='University'>University</option>
+                                <option value='Employee Referral'>Employee Referral</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div className='flex description p-3 justify-around items-center'>
+
+                    <p className='text-xl p-3 font-medium'>Question Asked</p>
+
+                    <textarea className='p-3 rounded-md w-96 h-32' />
+
+                    <p className='text-xl p-3 font-medium'>Answer Given</p>
+
+                    <textarea className='p-3 rounded-md w-96 h-32' />
+
+                </div>
+
+                <div className='flex flex-col mt-5 w-full justify-center items-center'>
+
+
+                <button className='m-2 p-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'> Add Another </button>
+
+                <button className='m-2 p-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'> Add Another </button>
+
+                </div>
+
+
             </div>
         </div>
     );
