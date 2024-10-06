@@ -7,7 +7,7 @@ const ExperienceCard = ({experience}) => {
   return (
       <Card className="ExperienceCardBody">
         <Card.Body>
-          <Card.Title className='font-semibold mb-4 mt-2 flex justify-between'> <span> {experience.company_name} Interview Experience | {experience.interview_source} </span> <span className=' font-normal text-xs text-gray-600'>Last Updated: 16 November 2021</span>  </Card.Title>
+          <Card.Title className='font-semibold mb-4 mt-2 flex justify-between'> <span> {experience.company_name} Interview Experience | {experience.interview_source} </span> <span className=' font-normal text-xs text-gray-600'>Last Updated: {experience.date}</span>  </Card.Title>
           <Card.Text className='mb-4'>
             {experience.description}
           </Card.Text>
@@ -17,7 +17,7 @@ const ExperienceCard = ({experience}) => {
             <Badge className="ExperienceCardTag mr-2">Interview</Badge>
             <Badge className="ExperienceCardTag mr-2">{experience.company_name}</Badge>
             <Badge className="ExperienceCardTag mr-2">{experience.interview_source}</Badge>
-            <Badge className="ExperienceCardTag">2021</Badge>
+            <Badge className="ExperienceCardTag">{experience.date.slice(-4)}</Badge>
           </div>
 
         </Card.Body>
