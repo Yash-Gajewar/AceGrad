@@ -1,11 +1,29 @@
-import React from 'react'
 import './ExperienceListView.css'
 import { Badge, Button } from 'react-bootstrap';
 import ExperienceCard from '../ExperienceCard/ExperienceCard'
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+
+
 
 
 const ExperienceListView = () => {
+
+    const [experiences, setExperiences] = useState([]);
+
+    useEffect(() => {
+        axios.get('http://localhost:8000/api/posts/getallposts')
+            .then((response) => {
+                console.log(response.data);
+                setExperiences(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
+
+
     return (
         <div className='ExperienceListView'>
             <h1 className='category'>On-Campus</h1>
@@ -23,14 +41,13 @@ const ExperienceListView = () => {
 
                 </Badge>
             </div>
-            <ExperienceCard />
-            <ExperienceCard />
-            <ExperienceCard />
-            <ExperienceCard />
-            <ExperienceCard />
-            <ExperienceCard />
-            <ExperienceCard />
-            <ExperienceCard />
+            {
+                experiences.map((experience) => {
+                    return (
+                        <ExperienceCard experience={experience} />
+                    )
+                })
+            }
         </div>
     )
 }
