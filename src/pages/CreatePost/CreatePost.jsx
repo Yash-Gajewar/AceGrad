@@ -57,12 +57,13 @@ const CreatePost = () => {
                         </div>
 
                         <div className='flex companyTitle p-3 justify-center items-center'>
-                            <p className='text-xl p-2 font-medium'>Company Name</p>
+                            <p className='text-xl p-2 font-medium'>Job Title</p>
                             <input type='text' className='p-2 rounded-md w-56 h-9' />
                         </div>
 
+
                         <div className='flex companyTitle p-3 justify-center items-center'>
-                            <p className='text-xl p-2 font-medium'>Company Name</p>
+                            <p className='text-xl p-2 font-medium'>Location</p>
                             <input type='text' className='p-2 rounded-md w-56 h-9' />
                         </div>
                     </div>
@@ -105,6 +106,16 @@ const CreatePost = () => {
                             </select>
                         </div>
 
+                    </div>
+
+
+                    <div className='flex flex-col p-3'>
+
+                        <div className='flex p-3 justify-between items-center'>
+                            <p className='text-xl p-2 font-medium'>Job CTC</p>
+                            <input type='text' className='p-2 rounded-md w-56 h-9' />
+                        </div>
+
 
                         <div className='flex companyTitle p-3 justify-between items-center'>
                             <p className='text-xl p-2 font-medium'>How did you get the interview</p>
@@ -116,19 +127,25 @@ const CreatePost = () => {
                                 <option value='Employee Referral'>Employee Referral</option>
                             </select>
                         </div>
-
+                        
                     </div>
+
+
+
 
                 </div>
 
 
+
+
+
                 <div className='flex description p-3 justify-around items-center'>
 
-                    <p className='text-xl p-3 font-medium'>Question Asked</p>
+                    <p className='text-xl p-3 font-medium'>Questions Asked</p>
 
                     <textarea className='p-3 rounded-md w-96 h-32' />
 
-                    <p className='text-xl p-3 font-medium'>Answer Given</p>
+                    <p className='text-xl p-3 font-medium'>Answers Given</p>
 
                     <textarea className='p-3 rounded-md w-96 h-32' />
 
@@ -137,15 +154,13 @@ const CreatePost = () => {
                 <div className='flex flex-col mt-5 w-full justify-center items-center'>
 
 
-                <button className='m-2 p-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'> Add Another </button>
-
-                <button className='m-2 p-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'> Add Another </button>
+                    <button className='m-2 p-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'> Submit </button>
 
                 </div>
 
 
             </div>
-        </div>
+        </div >
     );
 }
 
