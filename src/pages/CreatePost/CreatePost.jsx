@@ -3,42 +3,6 @@ import SidebarComponent from '../../components/SidebarComponent/SidebarComponent
 import './CreatePost.css'; // Import CSS file for styles
 
 const CreatePost = () => {
-    const [title, setTitle] = useState('');
-    const [experience, setExperience] = useState('');
-    const [tags, setTags] = useState([]);
-    const [preview, setPreview] = useState('');
-
-    const handleTitleChange = (event) => {
-        setTitle(event.target.value);
-    };
-
-    const handleExperienceChange = (event) => {
-        setExperience(event.target.value);
-        // Update preview with text formatting
-        setPreview(event.target.value.replace(/#(.*?)#/g, "<strong>$1</strong>").replace(/~(.*?)~/g, "<em>$1</em>"));
-    };
-
-    const handleTagsChange = (event) => {
-        const newTag = event.target.value.trim();
-        if (event.key === 'Enter' && newTag !== '') {
-            setTags([...tags, newTag]);
-            event.target.value = ''; // Clear input field after adding tag
-        }
-    };
-
-    const removeTag = (tagToRemove) => {
-        setTags(tags.filter(tag => tag !== tagToRemove));
-    };
-
-    const handleAddPost = () => {
-        // Logic to handle post submission goes here
-        console.log('Post Added:', { title, experience, tags });
-        // Clear the fields after submission
-        setTitle('');
-        setExperience('');
-        setTags([]);
-        setPreview('');
-    };
 
     return (
         <div className='flex'>
@@ -127,7 +91,7 @@ const CreatePost = () => {
                                 <option value='Employee Referral'>Employee Referral</option>
                             </select>
                         </div>
-                        
+
                     </div>
 
 
