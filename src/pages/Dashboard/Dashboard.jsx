@@ -48,11 +48,11 @@ const Dashboard = () => {
 
   // Data for the Bar Chart
   const barChartData = {
-    labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+    labels: ['1', '2', '3', '4', '5', '6', '7'],
     datasets: [
       {
-        label: 'Revenue',
-        data: [15000, 20000, 18000, 22000],
+        label: 'Accuracy',
+        data: [30, 45, 35, 55, 50, 60, 54],
         backgroundColor: 'rgba(54, 162, 235, 0.5)', // Bar color
         borderColor: 'rgba(54, 162, 235, 1)',
         borderWidth: 1,
@@ -68,7 +68,7 @@ const Dashboard = () => {
       },
       title: {
         display: true,
-        text: 'Quarterly Revenue',
+        text: 'Accuracy Over Number of Interviews Given',
       },
     },
     scales: {

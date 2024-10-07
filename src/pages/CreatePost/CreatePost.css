@@ -1,0 +1,97 @@
+.CreateExperienceContainer {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Form takes 2/3 and Preview takes 1/3 */
+    gap: 20px;
+    padding: 20px;
+}
+
+.FormContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.FormContainer input, .FormContainer textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.FormContainer textarea {
+    min-height: 150px;
+}
+
+.TagInput input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.TagsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.Tag {
+    background-color: #e0e0e0;
+    padding: 5px 10px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.RemoveTag {
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+.PreviewContainer {
+    padding: 20px;
+    border-left: 2px solid #ddd;
+}
+
+.ExperiencePreview {
+    white-space: pre-wrap;
+    font-size: 16px;
+}
+
+.PreviewTitle {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.PreviewTags {
+    margin-top: 15px;
+}
+
+.TagPreview {
+    background-color: #e0e0e0;
+    padding: 5px 10px;
+    border-radius: 15px;
+    margin-right: 10px;
+}
+
+.PostButton {
+    padding: 10px 15px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    display: inline-block; /* Ensure it shows as an inline-block */
+    text-align: center; /* Center text inside */
+}
+
+
+
+@media screen and (max-width: 768px) {
+    .CreateExperienceContainer {
+        grid-template-columns: 1fr; /* Stack form and preview vertically on small screens */
+    }
+}

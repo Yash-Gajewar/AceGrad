@@ -1,0 +1,155 @@
+[
+    {
+      "title": "Zscaler Interview Experience | On-Campus 2021",
+      "text": "Zscaler visited our campus in the month of October 2021, the process took only 4-5 days to complete. Two profiles were offered Assoc ...",
+      "tags": ["Zscaler", "Interview Experience", "On-Campus", "2021"],
+      "date": "16 November 2021",
+      "company": "Zscaler",
+      "popularity": ["Popular"]
+    },
+    {
+      "title": "EPAM Interview Experience | On-Campus 2021",
+      "text": "ABOUT COMPANY: EPAM is one of the dream-job for freshers nowadays which is getting exponentially popular.This is a service-based company whe ...",
+      "tags": ["EPAM Systems", "Interview Experience", "On-Campus", "2021"],
+      "date": "25 January 2024",
+      "company": "EPAM Systems",
+      "popularity": ["Popular", "Recent"]
+    },
+    {
+      "title": "Fractal Analytics Interview Experience",
+      "text": "The description is of my interview experience with Fractal Analytics for the role of Imagineer (Trainee Data Scientist) during the campus pl ...",
+      "tags": ["Fractal Analytics", "Interview Experience", "Trainee Data Scientist"],
+      "date": "31 March 2021",
+      "company": "Fractal Analytics",
+      "popularity": ["Popular"]
+    },
+    {
+      "title": "Tiger Analytics Interview Experience for Data Analyst (On-Campus)",
+      "text": "Recently, I have been through the interview experience of Tiger Analytics Chennai and I would like to share my experience with everyone. Tot ...",
+      "tags": ["Tiger Analytics", "Interview Experience", "Data Analyst", "On-Campus"],
+      "date": "18 January 2021",
+      "company": "Tiger Analytics",
+      "popularity": ["Popular"]
+    },
+    {
+      "title": "ZScaler Interview Experience ( On-Campus)",
+      "text": "The company visited campus for recruitment for the posts of Associate Software Engineer and Cloud Operations Engineer. There were three roun ...",
+      "tags": ["ZScaler", "Interview Experience", "On-Campus"],
+      "date": "14 September 2020",
+      "company": "Zscaler",
+      "popularity": ["Popular"]
+    },
+    {
+      "title": "Atlassian Interview Experience for Full Time Software Engineer, Bangalore (On-Campus)",
+      "text": "Atlassian visited our campus for Full time software engineer role hiring. Interview process was divided into 4 rounds(including initial Comp ...",
+      "tags": ["Atlassian", "Interview Experience", "Software Engineer", "On-Campus"],
+      "date": "19 August 2021",
+      "company": "Atlassian",
+      "popularity": ["Popular"]
+    },
+    {
+      "title": "PayPal Interview Experience for SDE-1 | On-Campus Virtual 2020",
+      "text": "Round 1( Coding Test): 2 coding questions on hackerrank platform: The questions were similar to i.e., a) Count Vowels Permutation (https://w ...",
+      "tags": ["PayPal", "Interview Experience", "On-Campus", "SDE-1"],
+      "date": "02 April 2024",
+      "company": "PayPal",
+      "popularity": ["Recent"]
+    },
+    {
+      "title": "Accenture On Campus 2020 Placement Drive",
+      "text": "The recruitment of the Accenture process started with a Pre Placement Talk. Where the HR explained the hiring process of the company. There ...",
+      "tags": ["Accenture", "On-Campus", "Placement Drive", "2020"],
+      "date": "11 January 2023",
+      "company": "Accenture",
+      "popularity": ["Popular"]
+    },
+    {
+      "title": "Heap Sort - Data Structures and Algorithms Tutorials",
+      "text": "Heap sort is a comparison-based sorting technique based on Binary Heap data structure. It is similar to the selection sort where we first fi...",
+      "tags": ["Heap Sort", "Sorting", "Heap", "DSA"],
+      "date": "29 March 2024",
+      "company": "Heap Sort",
+      "popularity": ["Recent"]
+    },
+    {
+      "title": "Prim’s Algorithm for Minimum Spanning Tree (MST)",
+      "text": "Introduction to Prim's algorithm:We have discussed Kruskal's algorithm for Minimum Spanning Tree. Like Kruskal's algorithm, Prim’s algori...",
+      "tags": ["Prim's Algorithm", "Minimum Spanning Tree", "Greedy", "DSA"],
+      "date": "16 February 2024",
+      "company": "Prim's Algorithm",
+      "popularity": ["Recent"]
+    },
+    {
+      "title": "Searching in Binary Search Tree (BST)",
+      "text": "Given a BST, the task is to search a node in this BST.For searching a value in BST, consider it as a sorted array. Now we can easily perform...",
+      "tags": ["Binary Search Tree", "Searching", "BST", "DSA"],
+      "date": "21 November 2023",
+      "company": "Binary Search Tree",
+      "popularity": ["Recent"]
+    },
+    {
+      "title": "QuickSort - Data Structure and Algorithm Tutorials",
+      "text": "QuickSort is a sorting algorithm based on the Divide and Conquer algorithm that picks an element as a pivot and partitions the given array a...",
+      "tags": ["Quick Sort", "Sorting", "Divide and Conquer", "DSA"],
+      "date": "09 April 2024",
+      "company": "Quick Sort",
+      "popularity": ["Recent"]
+    },
+    {
+      "title": "Longest Common Subsequence (LCS)",
+      "text": "Given two strings, S1 and S2, the task is to find the length of the Longest Common Subsequence, i.e. longest subsequence present in both of ...",
+      "tags": ["Longest Common Subsequence", "LCS", "Dynamic Programming", "Strings"],
+      "date": "14 March 2024",
+      "company": "Longest Common Subsequence",
+      "popularity": ["Recent"]
+    },
+    {
+      "title": "Reverse a Linked List",
+      "text": "Given a pointer to the head node of a linked list, the task is to reverse the linked list. We need to reverse the list by changing the links...",
+      "tags": ["Reverse", "Linked List", "DSA"],
+      "date": "02 April 2024",
+      "company": "Reverse",
+      "popularity": ["Recent"]
+    },
+    {
+      "title": "Permutations of given String",
+      "text": "Given a string S, the task is to write a program to print all permutations of a given string.A permutation also called an \"arrangement numbe...",
+      "tags": ["Permutations", "Strings", "Backtracking", "Recursion"],
+      "date": "18 October 2023",
+      "company": "Permutations",
+      "popularity": ["Popular"]
+    },
+    {
+      "title": "Largest Sum Contiguous Subarray (Kadane's Algorithm)",
+      "text": "Given an array arr[] of size N. The task is to find the sum of the contiguous subarray within a arr[] with the largest sum.  Recommended P...",
+      "tags": ["Largest Sum Contiguous Subarray", "subarray", "Dynamic Programming", "Arrays"],
+      "date": "12 April 2024",
+      "company": "Largest Sum Contiguous Subarray",
+      "popularity": ["Recent"]
+    },
+    {
+      "title": "Detect Cycle in a Directed Graph",
+      "text": "Given the root of a Directed graph, The task is to check whether the graph contains a cycle or not.Examples:Input: N = 4, E = 6 Output: YesE...",
+      "tags": ["Detect Cycle", "Directed Graph", "DFS", "Graph"],
+      "date": "06 November 2023",
+      "company": "Detect Cycle",
+      "popularity": ["Popular"]
+    },
+    {
+      "title": "Level Order Traversal (Breadth First Search or BFS) of Binary Tree",
+      "text": "Level Order Traversal technique is defined as a method to traverse a Tree such that all nodes present in the same level are traversed comple...",
+      "tags": ["Level Order Traversal", "Breadth First Search", "Binary Tree", "Queue"],
+      "date": "15 February 2024",
+      "company": "Level Order Traversal",
+      "popularity": ["Recent"]
+    },
+    {
+      "title": "Reverse a Linked List",
+      "text": "Given a pointer to the head node of a linked list, the task is to reverse the linked list. We need to reverse the list by changing the links...",
+      "tags": ["Reverse", "Linked List", "DSA"],
+      "date": "02 April 2024",
+      "company": "Reverse",
+      "popularity": ["Recent"]
+    }
+  ]
+  
