@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import SidebarComponent from '../../components/SidebarComponent/SidebarComponent';
 import AnalyticsComponent from '../../components/AnalyticsComponent/AnalyticsComponent';
 import insights_icon from '../../assets/insights_icon.png';
-import axios from 'axios';
-
 
 
 function Analytics() {

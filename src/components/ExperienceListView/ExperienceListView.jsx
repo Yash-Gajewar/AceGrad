@@ -1,17 +1,38 @@
-import React from 'react';
 import './ExperienceListView.css';
 import { Badge } from 'react-bootstrap';
 import ExperienceCard from '../ExperienceCard/ExperienceCard';
 import experience from './experience.json';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 const ExperienceListView = () => {
+
+
+    const [experience, setExperience] = useState([]);
+
+    const fetchExperience = async () => {
+        try {
+            const response = await axios.get('http://localhost:8000/api/posts/getallposts');
+            console.log(response.data);
+            setExperience(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+
+    useEffect(() => {
+        fetchExperience();
+    }, []);
+
+
     const navigate = useNavigate();
 
     const handleCreateClick = () => {
         navigate('/create-experience'); // Redirect to the create experience page
     };
-    
+
     const handleCardClick = () => {
         navigate('/experience'); // Redirect to the experience page
     };
@@ -37,8 +58,9 @@ const ExperienceListView = () => {
             {experience.map((exp, index) => (
                 <ExperienceCard
                     key={index}
+                    id={exp.id}
                     title={exp.title}
-                    text={exp.text}
+                    text={exp.content}
                     tags={exp.tags}
                     date={exp.date}
                     onClick={handleCardClick} // Directly call handleCardClick without parameters

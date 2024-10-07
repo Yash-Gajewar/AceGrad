@@ -14,7 +14,7 @@ const ExperienceCard = ({ title, text, tags, date, onClick }) => {
         </Card.Title>
         
         <Card.Text className='mb-4'>
-          {text} <Card.Link className="font-semibold" href="#">... read more</Card.Link>
+          {text} <Card.Link className="font-semibold" href="#"></Card.Link>
         </Card.Text>
 
         <div className="tags d-inline-flex align-items-center">

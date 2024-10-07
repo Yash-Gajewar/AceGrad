@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import insights_icon from '../../assets/insights_icon.png'
 import { Accordion } from "flowbite-react";
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
+
 
 
 const AnalyticsComponent = (props) => {
@@ -11,20 +13,21 @@ const AnalyticsComponent = (props) => {
     const minLength = Math.min(props.questionList.length, props.suggestionList.length);
     // const [transcript, setTranscript] = useState(localStorage.getItem('transcript'));
 
-    const [fillerWordsCount, setFillerWordsCount] = useState(0);
-    const [weakWordsCount, setWeakWordsCount] = useState(0);
-    const [sentenceStartersCount, setSentenceStartersCount] = useState(0);
-    const [negativeWordsCount, setNegativeWordsCount] = useState(0);
+    const [fillerWordsCount, setFillerWordsCount] = useState('0');
+    const [weakWordsCount, setWeakWordsCount] = useState('0');
+    const [sentenceStartersCount, setSentenceStartersCount] = useState('0');
+    const [negativeWordsCount, setNegativeWordsCount] = useState('0');
 
-    const [fillerWordsPercentage, setFillerWordsPercentage] = useState(0);
-    const [weakWordsPercentage, setWeakWordsPercentage] = useState(0);
-    const [sentenceStartersPercentage, setSentenceStartersPercentage] = useState(0);
-    const [negativeWordsPercentage, setNegativeWordsPercentage] = useState(0);
+    const [fillerWordsPercentage, setFillerWordsPercentage] = useState('0');
+    const [weakWordsPercentage, setWeakWordsPercentage] = useState('0');
+    const [sentenceStartersPercentage, setSentenceStartersPercentage] = useState('0');
+    const [negativeWordsPercentage, setNegativeWordsPercentage] = useState('0');
 
 
 
     useEffect(() => {
         fetchTranscriptDetails();
+        // postInterviewAnalytics();
     }, [])
 
 
@@ -52,10 +55,42 @@ const AnalyticsComponent = (props) => {
             setNegativeWordsPercentage(response.data.negative_words_percentage);
 
 
-
         } catch (error) {
             console.error(error);
         }
+    }
+
+
+    const postInterviewAnalytics = async () => {
+
+        const formData = {
+            id: uuidv4(),
+            number: "1",
+            score: "50",
+            accuracy: "50",
+            filler: fillerWordsCount,
+            weak: weakWordsCount,
+            negative: negativeWordsCount,
+            starter: sentenceStartersPercentage
+        }
+
+        try {
+            const response = await axios.post('http://localhost:8000/api/analytics/createanalytics', formData, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            )
+
+            console.log(response.data);
+
+        }
+
+        catch (error) {
+            console.error(error);
+        }
+
+
     }
 
 
