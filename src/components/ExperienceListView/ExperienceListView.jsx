@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react';
 
 const ExperienceListView = () => {
 
+    
+
 
     const [experience, setExperience] = useState([]);
 
@@ -30,11 +32,11 @@ const ExperienceListView = () => {
     const navigate = useNavigate();
 
     const handleCreateClick = () => {
-        navigate('/create-experience'); // Redirect to the create experience page
+        navigate('/create-post'); // Redirect to the create experience page
     };
 
-    const handleCardClick = () => {
-        navigate('/experience'); // Redirect to the experience page
+    const handleCardClick = (id) => {
+        navigate(`/experience?id=${id}`); // Redirect to the experience page
     };
 
     return (
@@ -63,7 +65,7 @@ const ExperienceListView = () => {
                     text={exp.content}
                     tags={exp.tags}
                     date={exp.date}
-                    onClick={handleCardClick} // Directly call handleCardClick without parameters
+                    onClick={() => handleCardClick(exp.id)} // Directly call handleCardClick without parameters
                 />
             ))}
         </div>

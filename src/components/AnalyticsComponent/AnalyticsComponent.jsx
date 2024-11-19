@@ -22,12 +22,16 @@ const AnalyticsComponent = (props) => {
     const [weakWordsPercentage, setWeakWordsPercentage] = useState('0');
     const [sentenceStartersPercentage, setSentenceStartersPercentage] = useState('0');
     const [negativeWordsPercentage, setNegativeWordsPercentage] = useState('0');
-
+    const [flag, setFlag] = useState(true);
 
 
     useEffect(() => {
         fetchTranscriptDetails();
-        // postInterviewAnalytics();
+
+        if(flag){
+            postInterviewAnalytics();
+            setFlag(false);
+        }
     }, [])
 
 

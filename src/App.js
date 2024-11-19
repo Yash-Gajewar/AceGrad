@@ -8,6 +8,7 @@ import Analytics from './pages/Analytics/Analytics';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Experience from './pages/Experience/Experience';
 import CreatePost from './pages/CreatePost/CreatePost';
+import ViewExperience from './pages/ViewExperience/ViewExperience';
 
 
 import './App.css';
@@ -21,8 +22,9 @@ function App() {
       <Route path="/session" element={<Session />} />
       <Route path="/analytics" element={<Analytics />} />
       <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/experience" element={<Experience />} />
-      <Route path="/create-experience" element={<CreatePost />} />
+      <Route path="/archives" element={<Experience />} />
+      <Route path="/create-post" element={<CreatePost />} />
+      <Route path="/experience" element={<ViewExperience />} />
     </Routes>
   );
 }

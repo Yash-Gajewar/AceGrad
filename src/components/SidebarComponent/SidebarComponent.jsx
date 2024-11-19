@@ -60,7 +60,7 @@ const SidebarComponent = () => {
                                     )
                             }
                         </MenuItem>
-                        <MenuItem component={<Link to="/experience" />} className='mt-4'>
+                        <MenuItem component={<Link to="/archives" />} className='mt-4'>
                             {
                                 collapsed ? <img src={story} alt="interview" height={imageHeight} width={imageWidth} />
                                     : (
